@@ -1,10 +1,12 @@
 import { FC } from "react";
+import CalculationForm from "./CalculationForm";
+import { Box } from "@mui/material";
 
 const HomePage: FC = () => {
     return (
-        <div>
-            i am HOME PAGE!!!!!
-        </div>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CalculationForm/>
+        </Box>
     )
 }
 
