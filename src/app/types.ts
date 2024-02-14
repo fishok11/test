@@ -1,13 +1,13 @@
 export type Student = {
-  id: Number;
-  name: String;
+  id: number;
+  name: string;
 }
 
 export type Students = Array<Student>
 
 export type AcademicSubject = {
-  id: Number;
-  title: String;
+  id: number;
+  title: string;
 }
 
 export type AcademicSubjects = Array<AcademicSubject>
