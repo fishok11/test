@@ -14,7 +14,7 @@ const Header = () => {
 
   return (    
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ bgcolor: "grey" }}>
+      <AppBar position="static">
 				<Toolbar>
 					<IconButton
 						size="large"
@@ -36,17 +36,12 @@ const Header = () => {
 				anchor={'left'}
 				open={isOpen}
 				onClose={() => setIsOpen(false)}
-				PaperProps={{
-					sx: {
-						bgcolor: 'grey'
-					}
-				}}
 			>
 				<List>
 					{['Students', 'About us'].map((text) => (
-						<ListItem key={text} sx={{ color: 'white'}}>
+						<ListItem key={text} >
 							<ListItemButton>
-								<ListItemIcon sx={{ color: 'white'}}>
+								<ListItemIcon>
 									{text === 'About us' ? <InfoIcon/> : ''}
 									{text === 'Students' ? <PeopleIcon/> : ''}
 								</ListItemIcon>
