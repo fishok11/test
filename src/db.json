@@ -1,0 +1,38 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Petya"
+    },
+    {
+      "id": 2,
+      "name": "Vitya"
+    },
+    {
+      "id": 3,
+      "name": "Misha"
+    },
+    {
+      "id": 4,
+      "name": "Danya"
+    },
+    {
+      "id": 5,
+      "name": "Kirill"
+    }
+  ],
+  "academicSubjects": [
+    {
+      "id": 1,
+      "title": "Math"
+    },
+    {
+      "id": 2,
+      "title": "Philosophy"
+    },
+    {
+      "id": 3,
+      "title": "3d modeling"
+    }
+  ]
+}
