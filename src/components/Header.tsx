@@ -5,54 +5,57 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import PeopleIcon from '@mui/icons-material/People';
 
 const Header = () => {
-	const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  return (    
+  return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-				<Toolbar>
-					<IconButton
-						size="large"
-						edge="start"
-						color={"inherit"}
-						aria-label="menu"
-						sx={{ mr: 2 }}
-						onClick={() => setIsOpen(true)}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Test
-					</Typography>
-				</Toolbar>
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color={'inherit'}
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={() => setIsOpen(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Test
+          </Typography>
+        </Toolbar>
       </AppBar>
 
-			<Drawer
-				anchor={'left'}
-				open={isOpen}
-				onClose={() => setIsOpen(false)}
-			>
-				<List>
-					{['Students', 'About us'].map((text) => (
-						<ListItem key={text} >
-							<ListItemButton>
-								<ListItemIcon>
-									{text === 'About us' ? <InfoIcon/> : ''}
-									{text === 'Students' ? <PeopleIcon/> : ''}
-								</ListItemIcon>
-								<ListItemText primary={text} />
-							</ListItemButton>
-						</ListItem>
-					))}
-				</List>
-			</Drawer>
+      <Drawer anchor={'left'} open={isOpen} onClose={() => setIsOpen(false)}>
+        <List>
+          {['Students', 'About us'].map((text) => (
+            <ListItem key={text}>
+              <ListItemButton>
+                <ListItemIcon>
+                  {text === 'About us' ? <InfoIcon /> : ''}
+                  {text === 'Students' ? <PeopleIcon /> : ''}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </Box>
-  )
-}
+  );
+};
 
 export default Header;
