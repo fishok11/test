@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import PeopleIcon from '@mui/icons-material/People';
+import HomeIcon from '@mui/icons-material/Home';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,12 +43,13 @@ const Header = () => {
 
       <Drawer anchor={'left'} open={isOpen} onClose={() => setIsOpen(false)}>
         <List>
-          {['Students', 'About us'].map((text) => (
+          {['Home', 'Students', 'Third page'].map((text) => (
             <ListItem key={text}>
               <ListItemButton>
                 <ListItemIcon>
-                  {text === 'About us' ? <InfoIcon /> : ''}
+                  {text === 'Home' ? <HomeIcon /> : ''}
                   {text === 'Students' ? <PeopleIcon /> : ''}
+                  {text === 'Third page' ? <InfoIcon /> : ''}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
