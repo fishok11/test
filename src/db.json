@@ -21,7 +21,7 @@
       "name": "Kirill"
     }
   ],
-  "academicSubjects": [
+  "courses": [
     {
       "id": 1,
       "title": "Math"
@@ -33,6 +33,34 @@
     {
       "id": 3,
       "title": "3d modeling"
+    }
+  ],
+  "studentsData": [
+    {
+      "id": "9b14",
+      "studentId": 1,
+      "courseId": 1,
+      "averageGrade": 4,
+      "validMissedClasses": 4,
+      "invalidMissedClasses": 5,
+      "grades": [
+        4,
+        4
+      ],
+      "decision": "Студент допущен к зачету"
+    },
+    {
+      "id": "a475",
+      "studentId": 1,
+      "courseId": 1,
+      "averageGrade": 4,
+      "validMissedClasses": 4,
+      "invalidMissedClasses": 5,
+      "grades": [
+        4,
+        4
+      ],
+      "decision": "Студент допущен к зачету"
     }
   ]
 }

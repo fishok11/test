@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { Button, MenuItem, Stack, TextField } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { getAcademicSubjects, getStudents, mainState } from '../app/mainSlice';
-import { AcademicSubject, Student } from '../app/types';
+import {
+  addStudentData,
+  getCourses,
+  getStudents,
+  mainState,
+} from '../app/mainSlice';
+import { Course, Student, StudentDataToAdded } from '../app/types';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();
   const state = useAppSelector(mainState);
+  const [studentId, setStudentId] = useState<number>();
+  const [courseId, setCourseId] = useState<number>();
   const [gradesCount, setGradesCount] = useState<number>(0);
   const [grades, setGrades] = useState<string>('');
   const [validMissedClasses, setValidMissedClasses] = useState<number>(0);
@@ -15,6 +22,7 @@ const HomePage: FC = () => {
   const [averageGrade, setAverageGrade] = useState(0);
   const [decision, setDecision] = useState('');
   const handleSubmit = () => {
+    let decision = '';
     const gradesArr = grades.split('').map((i) => Number(i));
     const averageGradeСalculation =
       gradesArr.reduce((acc, num) => acc + num) / gradesCount;
@@ -26,13 +34,27 @@ const HomePage: FC = () => {
       invalidMissedClasses <= 5
     ) {
       setDecision('Студент допущен к зачету');
+      decision = 'Студент допущен к зачету';
     } else {
       setDecision('Студент не допущен к экзамену/зачету');
+      decision = 'Студент не допущен к экзамену/зачету';
     }
+
+    const studentData: StudentDataToAdded = {
+      studentId: studentId,
+      courseId: courseId,
+      averageGrade: averageGradeСalculation,
+      validMissedClasses: validMissedClasses,
+      invalidMissedClasses: invalidMissedClasses,
+      grades: gradesArr,
+      decision: decision,
+    };
+    dispatch(addStudentData(studentData));
+    console.log(studentData);
   };
   useEffect(() => {
     dispatch(getStudents());
-    dispatch(getAcademicSubjects());
+    dispatch(getCourses());
   }, [dispatch]);
 
   return (
@@ -55,9 +77,10 @@ const HomePage: FC = () => {
         defaultValue=""
         size="small"
         fullWidth
+        onChange={(e) => setStudentId(parseInt(e.target.value))}
       >
         {state.students?.map((item: Student) => (
-          <MenuItem key={item.id} value={item.name}>
+          <MenuItem key={item.id} value={item.id}>
             {item.name}
           </MenuItem>
         ))}
@@ -69,9 +92,10 @@ const HomePage: FC = () => {
         defaultValue=""
         size="small"
         fullWidth
+        onChange={(e) => setCourseId(parseInt(e.target.value))}
       >
-        {state.academicSubjects?.map((item: AcademicSubject) => (
-          <MenuItem key={item.id} value={item.title}>
+        {state.courses?.map((item: Course) => (
+          <MenuItem key={item.id} value={item.id}>
             {item.title}
           </MenuItem>
         ))}
