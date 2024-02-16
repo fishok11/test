@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   addStudentData,
   getCourses,
+  getStudentData,
   getStudents,
   hideErrorCourses,
   hideErrorGrades,
@@ -102,6 +103,7 @@ const HomePage: FC = () => {
   useEffect(() => {
     dispatch(getStudents());
     dispatch(getCourses());
+    dispatch(getStudentData());
   }, [dispatch]);
 
   return (
@@ -174,11 +176,13 @@ const HomePage: FC = () => {
             variant="outlined"
             size="small"
             fullWidth
+            type={'number'}
             key={index}
             disabled={gradesCount === 0}
             inputProps={{ maxLength: gradesCount }}
             error={state.errorGrades}
             helperText={'Обязательное поле'}
+            defaultValue={0}
             value={grades[index]}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleGradeChange(index, parseInt(e.target.value))

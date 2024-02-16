@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
-import { Courses, StudentData, StudentDataToAdded, Students } from './types';
+import {
+  Courses,
+  StudentData,
+  StudentDataToAdded,
+  Students,
+  StudentsData,
+} from './types';
 import { DEFAULT_URL } from '../utils';
 import axios from 'axios';
 
@@ -12,6 +18,7 @@ export type InitialState = {
   errorCourses: boolean;
   errorGradesCount: boolean;
   errorGrades: boolean;
+  studentsData: StudentData[];
 };
 
 const initialState: InitialState = {
@@ -22,6 +29,7 @@ const initialState: InitialState = {
   errorCourses: false,
   errorGradesCount: false,
   errorGrades: false,
+  studentsData: [],
 };
 
 export const getStudents = createAsyncThunk<
@@ -57,11 +65,35 @@ export const getCourses = createAsyncThunk<
 export const addStudentData = createAsyncThunk<
   StudentData,
   StudentDataToAdded,
-  { rejectValue: string }
+  { rejectValue: string; state: RootState }
 >(
   'test/addStudentData',
-  async (studentData: StudentDataToAdded, { rejectWithValue }) => {
+  async (studentData: StudentDataToAdded, { rejectWithValue, getState }) => {
+    const state = getState().main;
+    const newStudentsData = state.studentsData;
+    let isUpdate = false;
+    let studentDataId;
+
+    for (let i = 0; i < newStudentsData.length; i++) {
+      const element = newStudentsData[i];
+      if (
+        element.courseId === studentData.courseId &&
+        element.studentId === studentData.studentId
+      ) {
+        isUpdate = true;
+        studentDataId = element.id;
+      }
+    }
+    console.log(isUpdate);
+
     try {
+      if (isUpdate) {
+        const { data } = await axios.put(
+          DEFAULT_URL + `studentsData/${studentDataId}`,
+          studentData,
+        );
+        return data;
+      }
       const { data } = await axios.post(
         DEFAULT_URL + 'studentsData',
         studentData,
@@ -73,6 +105,20 @@ export const addStudentData = createAsyncThunk<
     }
   },
 );
+
+export const getStudentData = createAsyncThunk<
+  StudentsData,
+  undefined,
+  { rejectValue: string }
+>('test/getStudentData', async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(DEFAULT_URL + 'studentsData');
+    return data;
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue('Server error!');
+  }
+});
 
 export const mainSlice = createSlice({
   name: 'main',
@@ -123,6 +169,22 @@ export const mainSlice = createSlice({
         getCourses.fulfilled,
         (state, action: PayloadAction<Courses>) => {
           state.courses = action.payload;
+          state.isLoading = false;
+        },
+      )
+      .addCase(addStudentData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addStudentData.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getStudentData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        getStudentData.fulfilled,
+        (state, action: PayloadAction<StudentsData>) => {
+          state.studentsData = action.payload;
           state.isLoading = false;
         },
       );

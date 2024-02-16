@@ -32,3 +32,5 @@ export type StudentData = {
   grades: number[];
   decision: string;
 };
+
+export type StudentsData = StudentData[];
