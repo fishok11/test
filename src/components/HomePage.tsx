@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Button, MenuItem, Stack, TextField } from '@mui/material';
+import {
+  Button,
+  MenuItem,
+  Modal,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
@@ -29,6 +37,7 @@ const HomePage: FC = () => {
   const [invalidMissedClasses, setInvalidMissedClasses] = useState<number>(0);
   const [averageGrade, setAverageGrade] = useState<number>();
   const [decision, setDecision] = useState('');
+  const [openModal, setOpenModal] = React.useState(false);
   const handleSubmit = () => {
     if (
       studentId === undefined ||
@@ -36,19 +45,18 @@ const HomePage: FC = () => {
       gradesCount === 0 ||
       grades.length === 0
     ) {
-      studentId === undefined
-        ? dispatch(showErrorStudentName())
-        : dispatch(hideErrorStudentName());
-      courseId === undefined
-        ? dispatch(showErrorCourses())
-        : dispatch(hideErrorCourses());
-      gradesCount === 0
-        ? dispatch(showErrorGradesCount())
-        : dispatch(hideErrorGradesCount());
-      grades.length === 0
-        ? dispatch(showErrorGrades())
-        : dispatch(hideErrorGrades());
-
+      if (studentId === undefined) {
+        dispatch(showErrorStudentName());
+      }
+      if (courseId === undefined) {
+        dispatch(showErrorCourses());
+      }
+      if (gradesCount === 0) {
+        dispatch(showErrorGrades());
+      }
+      if (grades.length === 0) {
+        dispatch(showErrorGradesCount());
+      }
       return;
     }
 
@@ -80,8 +88,12 @@ const HomePage: FC = () => {
       decision: decision,
     };
     dispatch(addStudentData(studentData));
+    dispatch(hideErrorStudentName());
+    dispatch(hideErrorGradesCount());
+    dispatch(hideErrorGrades());
+    dispatch(hideErrorCourses());
+    setOpenModal(true);
   };
-
   const handleGradeChange = (index: number, value: number) => {
     const newGrades = [...grades];
     newGrades[index] = value;
@@ -93,114 +105,145 @@ const HomePage: FC = () => {
   }, [dispatch]);
 
   return (
-    <Stack
-      spacing={2}
-      sx={{
-        width: '450px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        m: 'auto',
-        height: '100%',
-      }}
-    >
-      <TextField
-        id="outlined-select-currency"
-        select
-        label="Выберите студента"
-        defaultValue=""
-        size="small"
-        fullWidth
-        error={state.errorStudentName}
-        helperText={'Обязательное поле'}
-        onChange={(e) => setStudentId(parseInt(e.target.value))}
+    <>
+      <Stack
+        spacing={2}
+        sx={{
+          width: '450px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          m: 'auto',
+          height: '100%',
+          pt: '30px',
+        }}
       >
-        {state.students?.map((item: Student) => (
-          <MenuItem key={item.id} value={item.id}>
-            {item.name}
-          </MenuItem>
-        ))}
-      </TextField>
-      <TextField
-        id="outlined-select-currency"
-        select
-        label="Выберите предмет"
-        defaultValue=""
-        size="small"
-        fullWidth
-        error={state.errorCourses}
-        helperText={'Обязательное поле'}
-        onChange={(e) => setCourseId(parseInt(e.target.value))}
-      >
-        {state.courses?.map((item: Course) => (
-          <MenuItem key={item.id} value={item.id}>
-            {item.title}
-          </MenuItem>
-        ))}
-      </TextField>
-      <TextField
-        id="outlined-basic"
-        label="Количество оценок"
-        variant="outlined"
-        size="small"
-        fullWidth
-        type="number"
-        error={state.errorGradesCount}
-        helperText={'Обязательное поле'}
-        value={gradesCount}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setGradesCount(parseInt(e.target.value))
-        }
-      />
-      {Array.from({ length: gradesCount }).map((_, index) => (
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Выберите студента"
+          defaultValue=""
+          size="small"
+          fullWidth
+          error={state.errorStudentName}
+          helperText={'Обязательное поле'}
+          onChange={(e) => setStudentId(parseInt(e.target.value))}
+        >
+          {state.students?.map((item: Student) => (
+            <MenuItem key={item.id} value={item.id}>
+              {item.name}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Выберите предмет"
+          defaultValue=""
+          size="small"
+          fullWidth
+          error={state.errorCourses}
+          helperText={'Обязательное поле'}
+          onChange={(e) => setCourseId(parseInt(e.target.value))}
+        >
+          {state.courses?.map((item: Course) => (
+            <MenuItem key={item.id} value={item.id}>
+              {item.title}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
           id="outlined-basic"
-          label="Оценка"
+          label="Количество оценок"
           variant="outlined"
           size="small"
           fullWidth
-          key={index}
-          disabled={gradesCount === 0}
-          inputProps={{ maxLength: gradesCount }}
-          error={state.errorGrades}
+          type="number"
+          error={state.errorGradesCount}
           helperText={'Обязательное поле'}
-          value={grades[index]}
+          value={gradesCount}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleGradeChange(index, parseInt(e.target.value))
+            setGradesCount(parseInt(e.target.value))
           }
         />
-      ))}
-      <TextField
-        id="outlined-basic"
-        label="Пропуски по уважительной причине в %"
-        variant="outlined"
-        size="small"
-        fullWidth
-        type="number"
-        inputProps={{ maxLength: 3 }}
-        value={validMissedClasses}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setValidMissedClasses(parseInt(e.target.value))
-        }
-      />
-      <TextField
-        id="outlined-basic"
-        label="Пропуски по неуважительной причине в %"
-        variant="outlined"
-        size="small"
-        fullWidth
-        type="number"
-        inputProps={{ maxLength: 3 }}
-        value={invalidMissedClasses}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setInvalidMissedClasses(parseInt(e.target.value))
-        }
-      />
-      <Button variant="contained" fullWidth onClick={() => handleSubmit()}>
-        Расчитать
-      </Button>
-    </Stack>
+        {Array.from({ length: gradesCount }).map((_, index) => (
+          <TextField
+            id="outlined-basic"
+            label="Оценка"
+            variant="outlined"
+            size="small"
+            fullWidth
+            key={index}
+            disabled={gradesCount === 0}
+            inputProps={{ maxLength: gradesCount }}
+            error={state.errorGrades}
+            helperText={'Обязательное поле'}
+            value={grades[index]}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleGradeChange(index, parseInt(e.target.value))
+            }
+          />
+        ))}
+        <TextField
+          id="outlined-basic"
+          label="Пропуски по уважительной причине в %"
+          variant="outlined"
+          size="small"
+          fullWidth
+          type="number"
+          inputProps={{ maxLength: 3 }}
+          value={validMissedClasses}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setValidMissedClasses(parseInt(e.target.value))
+          }
+        />
+        <TextField
+          id="outlined-basic"
+          label="Пропуски по неуважительной причине в %"
+          variant="outlined"
+          size="small"
+          fullWidth
+          type="number"
+          inputProps={{ maxLength: 3 }}
+          value={invalidMissedClasses}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setInvalidMissedClasses(parseInt(e.target.value))
+          }
+        />
+        <Button variant="contained" fullWidth onClick={() => handleSubmit()}>
+          Расчитать
+        </Button>
+      </Stack>
+
+      <Modal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Paper
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '400px',
+            p: '10px',
+          }}
+        >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Решение
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Средний балл: {averageGrade}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {decision}
+          </Typography>
+        </Paper>
+      </Modal>
+    </>
   );
 };
 
