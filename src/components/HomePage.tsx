@@ -6,7 +6,15 @@ import {
   addStudentData,
   getCourses,
   getStudents,
+  hideErrorCourses,
+  hideErrorGrades,
+  hideErrorGradesCount,
+  hideErrorStudentName,
   mainState,
+  showErrorCourses,
+  showErrorGrades,
+  showErrorGradesCount,
+  showErrorStudentName,
 } from '../app/mainSlice';
 import { Course, Student, StudentDataToAdded } from '../app/types';
 
@@ -16,16 +24,38 @@ const HomePage: FC = () => {
   const [studentId, setStudentId] = useState<number>();
   const [courseId, setCourseId] = useState<number>();
   const [gradesCount, setGradesCount] = useState<number>(0);
-  const [grades, setGrades] = useState<string>('');
+  const [grades, setGrades] = useState<number[]>([]);
   const [validMissedClasses, setValidMissedClasses] = useState<number>(0);
   const [invalidMissedClasses, setInvalidMissedClasses] = useState<number>(0);
-  const [averageGrade, setAverageGrade] = useState(0);
+  const [averageGrade, setAverageGrade] = useState<number>();
   const [decision, setDecision] = useState('');
   const handleSubmit = () => {
+    if (
+      studentId === undefined ||
+      courseId === undefined ||
+      gradesCount === 0 ||
+      grades.length === 0
+    ) {
+      studentId === undefined
+        ? dispatch(showErrorStudentName())
+        : dispatch(hideErrorStudentName());
+      courseId === undefined
+        ? dispatch(showErrorCourses())
+        : dispatch(hideErrorCourses());
+      gradesCount === 0
+        ? dispatch(showErrorGradesCount())
+        : dispatch(hideErrorGradesCount());
+      grades.length === 0
+        ? dispatch(showErrorGrades())
+        : dispatch(hideErrorGrades());
+
+      return;
+    }
+
     let decision = '';
-    const gradesArr = grades.split('').map((i) => Number(i));
     const averageGradeСalculation =
-      gradesArr.reduce((acc, num) => acc + num) / gradesCount;
+      grades.reduce((acc, num) => acc + num) / gradesCount;
+
     setAverageGrade(averageGradeСalculation);
 
     if (
@@ -33,11 +63,11 @@ const HomePage: FC = () => {
       validMissedClasses <= 15 &&
       invalidMissedClasses <= 5
     ) {
-      setDecision('Студент допущен к зачету');
       decision = 'Студент допущен к зачету';
+      setDecision(decision);
     } else {
-      setDecision('Студент не допущен к экзамену/зачету');
       decision = 'Студент не допущен к экзамену/зачету';
+      setDecision(decision);
     }
 
     const studentData: StudentDataToAdded = {
@@ -46,11 +76,16 @@ const HomePage: FC = () => {
       averageGrade: averageGradeСalculation,
       validMissedClasses: validMissedClasses,
       invalidMissedClasses: invalidMissedClasses,
-      grades: gradesArr,
+      grades: grades,
       decision: decision,
     };
     dispatch(addStudentData(studentData));
-    console.log(studentData);
+  };
+
+  const handleGradeChange = (index: number, value: number) => {
+    const newGrades = [...grades];
+    newGrades[index] = value;
+    setGrades(newGrades);
   };
   useEffect(() => {
     dispatch(getStudents());
@@ -77,6 +112,8 @@ const HomePage: FC = () => {
         defaultValue=""
         size="small"
         fullWidth
+        error={state.errorStudentName}
+        helperText={'Обязательное поле'}
         onChange={(e) => setStudentId(parseInt(e.target.value))}
       >
         {state.students?.map((item: Student) => (
@@ -92,6 +129,8 @@ const HomePage: FC = () => {
         defaultValue=""
         size="small"
         fullWidth
+        error={state.errorCourses}
+        helperText={'Обязательное поле'}
         onChange={(e) => setCourseId(parseInt(e.target.value))}
       >
         {state.courses?.map((item: Course) => (
@@ -107,24 +146,31 @@ const HomePage: FC = () => {
         size="small"
         fullWidth
         type="number"
+        error={state.errorGradesCount}
+        helperText={'Обязательное поле'}
         value={gradesCount}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setGradesCount(parseInt(e.target.value))
         }
       />
-      <TextField
-        id="outlined-basic"
-        label="Оценки"
-        variant="outlined"
-        size="small"
-        fullWidth
-        disabled={gradesCount === 0}
-        inputProps={{ maxLength: gradesCount }}
-        value={grades}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setGrades(e.target.value)
-        }
-      />
+      {Array.from({ length: gradesCount }).map((_, index) => (
+        <TextField
+          id="outlined-basic"
+          label="Оценка"
+          variant="outlined"
+          size="small"
+          fullWidth
+          key={index}
+          disabled={gradesCount === 0}
+          inputProps={{ maxLength: gradesCount }}
+          error={state.errorGrades}
+          helperText={'Обязательное поле'}
+          value={grades[index]}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleGradeChange(index, parseInt(e.target.value))
+          }
+        />
+      ))}
       <TextField
         id="outlined-basic"
         label="Пропуски по уважительной причине в %"
@@ -154,11 +200,6 @@ const HomePage: FC = () => {
       <Button variant="contained" fullWidth onClick={() => handleSubmit()}>
         Расчитать
       </Button>
-
-      <div>
-        <p>Средний балл: {averageGrade}</p>
-        <p>Решение: {decision}</p>
-      </div>
     </Stack>
   );
 };

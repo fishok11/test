@@ -23,7 +23,7 @@ export type StudentDataToAdded = {
 };
 
 export type StudentData = {
-  id: number;
+  id: string;
   studentId: number;
   courseId: number;
   averageGrade: number;

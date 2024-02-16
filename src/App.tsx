@@ -8,7 +8,16 @@ function App() {
   return (
     <>
       <Header />
-      <Container maxWidth="lg" sx={{ height: '100%' }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          minHeight: '100%',
+          height: 'max-content',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <Routes>
           <Route index element={<HomePage />} />
         </Routes>

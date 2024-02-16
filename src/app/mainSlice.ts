@@ -8,12 +8,20 @@ export type InitialState = {
   students: Students;
   courses: Courses;
   isLoading: boolean;
+  errorStudentName: boolean;
+  errorCourses: boolean;
+  errorGradesCount: boolean;
+  errorGrades: boolean;
 };
 
 const initialState: InitialState = {
   students: [],
   courses: [],
   isLoading: false,
+  errorStudentName: false,
+  errorCourses: false,
+  errorGradesCount: false,
+  errorGrades: false,
 };
 
 export const getStudents = createAsyncThunk<
@@ -69,7 +77,32 @@ export const addStudentData = createAsyncThunk<
 export const mainSlice = createSlice({
   name: 'main',
   initialState,
-  reducers: {},
+  reducers: {
+    showErrorStudentName: (state) => {
+      state.errorStudentName = true;
+    },
+    hideErrorStudentName: (state) => {
+      state.errorStudentName = false;
+    },
+    showErrorCourses: (state) => {
+      state.errorCourses = true;
+    },
+    hideErrorCourses: (state) => {
+      state.errorCourses = false;
+    },
+    showErrorGradesCount: (state) => {
+      state.errorGradesCount = true;
+    },
+    hideErrorGradesCount: (state) => {
+      state.errorGradesCount = false;
+    },
+    showErrorGrades: (state) => {
+      state.errorGrades = true;
+    },
+    hideErrorGrades: (state) => {
+      state.errorGrades = false;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -96,7 +129,16 @@ export const mainSlice = createSlice({
   },
 });
 
-// export const {} = mainSlice.actions;
+export const {
+  showErrorStudentName,
+  hideErrorStudentName,
+  showErrorCourses,
+  hideErrorCourses,
+  showErrorGradesCount,
+  hideErrorGradesCount,
+  showErrorGrades,
+  hideErrorGrades,
+} = mainSlice.actions;
 
 export const mainState = (state: RootState) => state.main;
 
