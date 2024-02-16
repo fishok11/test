@@ -129,7 +129,7 @@ const HomePage: FC = () => {
           size="small"
           fullWidth
           error={state.errorStudentName}
-          helperText={'Обязательное поле'}
+          helperText={state.errorStudentName ? 'Обязательное поле' : ''}
           onChange={(e) => setStudentId(parseInt(e.target.value))}
         >
           {state.students?.map((item: Student) => (
@@ -146,7 +146,7 @@ const HomePage: FC = () => {
           size="small"
           fullWidth
           error={state.errorCourses}
-          helperText={'Обязательное поле'}
+          helperText={state.errorCourses ? 'Обязательное поле' : ''}
           onChange={(e) => setCourseId(parseInt(e.target.value))}
         >
           {state.courses?.map((item: Course) => (
@@ -163,7 +163,7 @@ const HomePage: FC = () => {
           fullWidth
           type="number"
           error={state.errorGradesCount}
-          helperText={'Обязательное поле'}
+          helperText={state.errorGradesCount ? 'Обязательное поле' : ''}
           value={gradesCount}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setGradesCount(parseInt(e.target.value))
@@ -181,7 +181,7 @@ const HomePage: FC = () => {
             disabled={gradesCount === 0}
             inputProps={{ maxLength: gradesCount }}
             error={state.errorGrades}
-            helperText={'Обязательное поле'}
+            helperText={state.errorGrades ? 'Обязательное поле' : ''}
             defaultValue={0}
             value={grades[index]}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
