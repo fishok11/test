@@ -17,6 +17,7 @@ import {
 import InfoIcon from '@mui/icons-material/Info';
 import PeopleIcon from '@mui/icons-material/People';
 import HomeIcon from '@mui/icons-material/Home';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,15 +45,17 @@ const Header = () => {
       <Drawer anchor={'left'} open={isOpen} onClose={() => setIsOpen(false)}>
         <List>
           {['Home', 'Students', 'Third page'].map((text) => (
-            <ListItem key={text}>
-              <ListItemButton>
-                <ListItemIcon>
-                  {text === 'Home' ? <HomeIcon /> : ''}
-                  {text === 'Students' ? <PeopleIcon /> : ''}
-                  {text === 'Third page' ? <InfoIcon /> : ''}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
+            <ListItem key={text} onClick={() => setIsOpen(false)}>
+              <Link to={text === 'Home' ? '/' : '/students'} className="link">
+                <ListItemButton sx={{ width: '100%' }}>
+                  <ListItemIcon>
+                    {text === 'Home' ? <HomeIcon /> : ''}
+                    {text === 'Students' ? <PeopleIcon /> : ''}
+                    {text === 'Third page' ? <InfoIcon /> : ''}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>

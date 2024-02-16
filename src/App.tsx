@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import Header from './components/Header';
 import { Container } from '@mui/material';
+import StudentsPage from './components/StudentsPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       >
         <Routes>
           <Route index element={<HomePage />} />
+          <Route path="/students" element={<StudentsPage />} />
         </Routes>
       </Container>
     </>
