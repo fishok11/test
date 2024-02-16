@@ -125,7 +125,6 @@ const HomePage: FC = () => {
           id="outlined-select-currency"
           select
           label="Выберите студента"
-          defaultValue=""
           size="small"
           fullWidth
           error={state.errorStudentName}
@@ -142,7 +141,6 @@ const HomePage: FC = () => {
           id="outlined-select-currency"
           select
           label="Выберите предмет"
-          defaultValue=""
           size="small"
           fullWidth
           error={state.errorCourses}
@@ -162,6 +160,7 @@ const HomePage: FC = () => {
           size="small"
           fullWidth
           type="number"
+          inputProps={{ min: 0 }}
           error={state.errorGradesCount}
           helperText={state.errorGradesCount ? 'Обязательное поле' : ''}
           value={gradesCount}
@@ -178,8 +177,7 @@ const HomePage: FC = () => {
             fullWidth
             type={'number'}
             key={index}
-            disabled={gradesCount === 0}
-            inputProps={{ maxLength: gradesCount }}
+            inputProps={{ maxLength: 3, min: 0 }}
             error={state.errorGrades}
             helperText={state.errorGrades ? 'Обязательное поле' : ''}
             defaultValue={0}
