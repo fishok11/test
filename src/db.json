@@ -11,14 +11,6 @@
     {
       "id": 3,
       "name": "Миша"
-    },
-    {
-      "id": 4,
-      "name": "Даня"
-    },
-    {
-      "id": 5,
-      "name": "Кирилл"
     }
   ],
   "courses": [
@@ -86,6 +78,105 @@
         3
       ],
       "decision": "Зачет"
+    },
+    {
+      "id": "d5e6",
+      "studentId": 2,
+      "courseId": 1,
+      "averageGrade": 3.4,
+      "validMissedClasses": 1,
+      "invalidMissedClasses": 1,
+      "grades": [
+        4,
+        4,
+        3,
+        3,
+        3
+      ],
+      "decision": "Зачет"
+    },
+    {
+      "studentId": 2,
+      "courseId": 2,
+      "averageGrade": 4.25,
+      "validMissedClasses": 1,
+      "invalidMissedClasses": 2,
+      "grades": [
+        4,
+        4,
+        3,
+        3,
+        3
+      ],
+      "decision": "Зачет",
+      "id": "6fd0"
+    },
+    {
+      "id": "9880",
+      "studentId": 2,
+      "courseId": 3,
+      "averageGrade": 4.166666666666667,
+      "validMissedClasses": 3,
+      "invalidMissedClasses": 2,
+      "grades": [
+        4,
+        5,
+        4,
+        5,
+        3,
+        4
+      ],
+      "decision": "Зачет"
+    },
+    {
+      "id": "8672",
+      "studentId": 3,
+      "courseId": 3,
+      "averageGrade": 5,
+      "validMissedClasses": 1,
+      "invalidMissedClasses": 0,
+      "grades": [
+        5,
+        4,
+        4,
+        5,
+        3,
+        4
+      ],
+      "decision": "Зачет"
+    },
+    {
+      "id": "8c2c",
+      "studentId": 3,
+      "courseId": 2,
+      "averageGrade": 3.4285714285714284,
+      "validMissedClasses": 1,
+      "invalidMissedClasses": 4,
+      "grades": [
+        3,
+        4,
+        5,
+        3,
+        3,
+        4,
+        2
+      ],
+      "decision": "Незачет"
+    },
+    {
+      "studentId": 3,
+      "courseId": 1,
+      "averageGrade": 4,
+      "validMissedClasses": 2,
+      "invalidMissedClasses": 2,
+      "grades": [
+        4,
+        3,
+        5,
+        4
+      ],
+      "decision": "Зачет",
+      "id": "693f"
     }
   ]
 }
