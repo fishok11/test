@@ -12,7 +12,7 @@ function App() {
       <Container
         maxWidth="lg"
         sx={{
-          minHeight: '100%',
+          minHeight: '80%',
           height: 'max-content',
           display: 'flex',
           justifyContent: 'center',

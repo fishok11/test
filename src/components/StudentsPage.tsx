@@ -19,6 +19,7 @@ import {
   TableRow,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Course, Student, StudentData } from '../app/types';
 
 const StudentsPage: FC = () => {
   const state = useAppSelector(mainState);
@@ -30,7 +31,7 @@ const StudentsPage: FC = () => {
   }, []);
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', pt: '30px' }}>
-      {state.students.map((student) => (
+      {state.students.map((student: Student) => (
         <Accordion key={student.id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -57,9 +58,10 @@ const StudentsPage: FC = () => {
                 <TableBody>
                   {state.studentsData
                     .filter(
-                      (studentData) => studentData.studentId == student.id,
+                      (studentData: StudentData) =>
+                        studentData.studentId == student.id,
                     )
-                    .map((filterStudentData) => (
+                    .map((filterStudentData: StudentData) => (
                       <TableRow
                         key={filterStudentData.id}
                         sx={{
@@ -69,10 +71,10 @@ const StudentsPage: FC = () => {
                         <TableCell component="th" scope="row">
                           {state.courses
                             .filter(
-                              (course) =>
+                              (course: Course) =>
                                 course.id == filterStudentData.courseId,
                             )
-                            .map((filterCorse) => filterCorse.title)}
+                            .map((filterCorse: Course) => filterCorse.title)}
                         </TableCell>
                         <TableCell align="right">
                           {filterStudentData.grades.join()}
@@ -84,7 +86,7 @@ const StudentsPage: FC = () => {
                           {filterStudentData.invalidMissedClasses}
                         </TableCell>
                         <TableCell align="right">
-                          {filterStudentData.averageGrade}
+                          {filterStudentData.averageGrade.toFixed(1)}
                         </TableCell>
                         <TableCell align="right">
                           {filterStudentData.decision}

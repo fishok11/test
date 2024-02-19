@@ -123,7 +123,6 @@ const HomePage: FC = () => {
           alignItems: 'center',
           flexDirection: 'column',
           m: 'auto',
-          height: '100%',
           pt: '30px',
         }}
       >
@@ -183,7 +182,7 @@ const HomePage: FC = () => {
             variant="outlined"
             size="small"
             fullWidth
-            type={'number'}
+            type="number"
             key={index}
             inputProps={{ min: 0, max: 5 }}
             error={state.errorGrades}
