@@ -29,7 +29,7 @@ const StudentsPage: FC = () => {
     dispatch(getStudentsData());
   }, []);
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', pt: '30px' }}>
       {state.students.map((student) => (
         <Accordion key={student.id}>
           <AccordionSummary

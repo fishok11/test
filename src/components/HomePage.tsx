@@ -133,6 +133,7 @@ const HomePage: FC = () => {
           label="Выберите студента"
           size="small"
           fullWidth
+          defaultValue=""
           error={state.errorStudentName}
           helperText={state.errorStudentName ? 'Обязательное поле' : ''}
           onChange={(e) => setStudentId(parseInt(e.target.value))}
@@ -149,6 +150,7 @@ const HomePage: FC = () => {
           label="Выберите предмет"
           size="small"
           fullWidth
+          defaultValue=""
           error={state.errorCourses}
           helperText={state.errorCourses ? 'Обязательное поле' : ''}
           onChange={(e) => setCourseId(parseInt(e.target.value))}
@@ -183,7 +185,7 @@ const HomePage: FC = () => {
             fullWidth
             type={'number'}
             key={index}
-            inputProps={{ maxLength: 3, min: 0 }}
+            inputProps={{ min: 0, max: 5 }}
             error={state.errorGrades}
             helperText={state.errorGrades ? 'Обязательное поле' : ''}
             defaultValue={0}
@@ -200,7 +202,7 @@ const HomePage: FC = () => {
           size="small"
           fullWidth
           type="number"
-          inputProps={{ maxLength: 3 }}
+          inputProps={{ min: 0 }}
           value={quanityValidMissedClasses}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setQuanityValidMissedClasses(parseInt(e.target.value))
@@ -213,7 +215,7 @@ const HomePage: FC = () => {
           size="small"
           fullWidth
           type="number"
-          inputProps={{ maxLength: 3 }}
+          inputProps={{ min: 0 }}
           value={quanityInvalidMissedClasses}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setQuanityInvalidMissedClasses(parseInt(e.target.value))
