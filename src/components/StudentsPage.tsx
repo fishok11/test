@@ -50,7 +50,7 @@ const StudentsPage: FC = () => {
                     <TableCell align="right">
                       Отсутвовал (без причины)
                     </TableCell>
-                    <TableCell align="right">Средняя оценка</TableCell>
+                    <TableCell align="right">Средний балл</TableCell>
                     <TableCell align="right">Решение</TableCell>
                   </TableRow>
                 </TableHead>

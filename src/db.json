@@ -39,15 +39,16 @@
     {
       "studentId": 1,
       "courseId": 1,
-      "averageGrade": 2.5,
+      "averageGrade": 4,
       "validMissedClasses": 0,
       "invalidMissedClasses": 0,
       "grades": [
-        2,
-        3
+        3,
+        5,
+        4
       ],
-      "decision": "Студент не допущен к экзамену/зачету",
-      "id": "9b14"
+      "decision": "Зачет",
+      "id": "344e"
     }
   ]
 }

@@ -34,8 +34,10 @@ const HomePage: FC = () => {
   const [courseId, setCourseId] = useState<number>();
   const [gradesCount, setGradesCount] = useState<number>(0);
   const [grades, setGrades] = useState<number[]>([]);
-  const [validMissedClasses, setValidMissedClasses] = useState<number>(0);
-  const [invalidMissedClasses, setInvalidMissedClasses] = useState<number>(0);
+  const [quanityValidMissedClasses, setQuanityValidMissedClasses] =
+    useState<number>(0);
+  const [quanityInvalidMissedClasses, setQuanityInvalidMissedClasses] =
+    useState<number>(0);
   const [averageGrade, setAverageGrade] = useState<number>();
   const [decision, setDecision] = useState('');
   const [openModal, setOpenModal] = React.useState(false);
@@ -64,18 +66,29 @@ const HomePage: FC = () => {
     let decision = '';
     const averageGradeСalculation =
       grades.reduce((acc, num) => acc + num) / gradesCount;
-
     setAverageGrade(averageGradeСalculation);
+    const percentValidMissedClasses =
+      (quanityValidMissedClasses /
+        (gradesCount +
+          quanityValidMissedClasses +
+          quanityInvalidMissedClasses)) *
+      100;
+    const percentInvalidMissedClasses =
+      (quanityInvalidMissedClasses /
+        (gradesCount +
+          quanityValidMissedClasses +
+          quanityInvalidMissedClasses)) *
+      100;
 
     if (
       averageGradeСalculation >= 3 &&
-      validMissedClasses <= 15 &&
-      invalidMissedClasses <= 5
+      percentValidMissedClasses <= 15 &&
+      percentInvalidMissedClasses <= 5
     ) {
-      decision = 'Студент допущен к зачету';
+      decision = 'Зачет';
       setDecision(decision);
     } else {
-      decision = 'Студент не допущен к экзамену/зачету';
+      decision = 'Незачет';
       setDecision(decision);
     }
 
@@ -83,8 +96,8 @@ const HomePage: FC = () => {
       studentId: studentId,
       courseId: courseId,
       averageGrade: averageGradeСalculation,
-      validMissedClasses: validMissedClasses,
-      invalidMissedClasses: invalidMissedClasses,
+      validMissedClasses: quanityValidMissedClasses,
+      invalidMissedClasses: quanityInvalidMissedClasses,
       grades: grades,
       decision: decision,
     };
@@ -104,7 +117,7 @@ const HomePage: FC = () => {
     dispatch(getStudents());
     dispatch(getCourses());
     dispatch(getStudentsData());
-  }, [dispatch]);
+  }, [dispatch, openModal]);
 
   return (
     <>
@@ -189,28 +202,28 @@ const HomePage: FC = () => {
         ))}
         <TextField
           id="outlined-basic"
-          label="Пропуски по уважительной причине в %"
+          label="Пропуски по уважительной причине"
           variant="outlined"
           size="small"
           fullWidth
           type="number"
           inputProps={{ maxLength: 3 }}
-          value={validMissedClasses}
+          value={quanityValidMissedClasses}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setValidMissedClasses(parseInt(e.target.value))
+            setQuanityValidMissedClasses(parseInt(e.target.value))
           }
         />
         <TextField
           id="outlined-basic"
-          label="Пропуски по неуважительной причине в %"
+          label="Пропуски по неуважительной причине"
           variant="outlined"
           size="small"
           fullWidth
           type="number"
           inputProps={{ maxLength: 3 }}
-          value={invalidMissedClasses}
+          value={quanityInvalidMissedClasses}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setInvalidMissedClasses(parseInt(e.target.value))
+            setQuanityInvalidMissedClasses(parseInt(e.target.value))
           }
         />
         <Button variant="contained" fullWidth onClick={() => handleSubmit()}>
