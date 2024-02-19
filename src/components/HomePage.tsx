@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  MenuItem,
-  Modal,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Button, MenuItem, Stack, TextField } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
@@ -26,6 +18,7 @@ import {
   showErrorStudentName,
 } from '../app/mainSlice';
 import { Course, Student, StudentDataToAdded } from '../app/types';
+import ModalDesision from './ModalDecision';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -82,8 +75,8 @@ const HomePage: FC = () => {
 
     if (
       averageGradeСalculation >= 3 &&
-      percentValidMissedClasses <= 15 &&
-      percentInvalidMissedClasses <= 5
+      percentValidMissedClasses <= 30 &&
+      percentInvalidMissedClasses <= 30
     ) {
       decision = 'Зачет';
       setDecision(decision);
@@ -230,34 +223,12 @@ const HomePage: FC = () => {
           Расчитать
         </Button>
       </Stack>
-
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Paper
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '400px',
-            p: '10px',
-          }}
-        >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Решение
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Средний балл: {averageGrade}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {decision}
-          </Typography>
-        </Paper>
-      </Modal>
+      <ModalDesision
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        averageGrade={averageGrade}
+        decision={decision}
+      />
     </>
   );
 };

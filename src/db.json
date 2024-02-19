@@ -49,6 +49,43 @@
       ],
       "decision": "Зачет",
       "id": "344e"
+    },
+    {
+      "studentId": 1,
+      "courseId": 2,
+      "averageGrade": 4,
+      "validMissedClasses": 1,
+      "invalidMissedClasses": 2,
+      "grades": [
+        4,
+        3,
+        5,
+        3,
+        4,
+        5,
+        4
+      ],
+      "decision": "Зачет",
+      "id": "1fe6"
+    },
+    {
+      "id": "31ea",
+      "studentId": 1,
+      "courseId": 3,
+      "averageGrade": 3.75,
+      "validMissedClasses": 1,
+      "invalidMissedClasses": 2,
+      "grades": [
+        3,
+        4,
+        4,
+        4,
+        3,
+        4,
+        5,
+        3
+      ],
+      "decision": "Зачет"
     }
   ]
 }
