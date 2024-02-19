@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   addStudentData,
   getCourses,
-  getStudentData,
+  getStudentsData,
   getStudents,
   hideErrorCourses,
   hideErrorGrades,
@@ -103,7 +103,7 @@ const HomePage: FC = () => {
   useEffect(() => {
     dispatch(getStudents());
     dispatch(getCourses());
-    dispatch(getStudentData());
+    dispatch(getStudentsData());
   }, [dispatch]);
 
   return (

@@ -106,11 +106,11 @@ export const addStudentData = createAsyncThunk<
   },
 );
 
-export const getStudentData = createAsyncThunk<
+export const getStudentsData = createAsyncThunk<
   StudentsData,
   undefined,
   { rejectValue: string }
->('test/getStudentData', async (_, { rejectWithValue }) => {
+>('test/getStudentsData', async (_, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(DEFAULT_URL + 'studentsData');
     return data;
@@ -178,11 +178,11 @@ export const mainSlice = createSlice({
       .addCase(addStudentData.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(getStudentData.pending, (state) => {
+      .addCase(getStudentsData.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(
-        getStudentData.fulfilled,
+        getStudentsData.fulfilled,
         (state, action: PayloadAction<StudentsData>) => {
           state.studentsData = action.payload;
           state.isLoading = false;

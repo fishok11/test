@@ -2,37 +2,37 @@
   "students": [
     {
       "id": 1,
-      "name": "Petya"
+      "name": "Петя"
     },
     {
       "id": 2,
-      "name": "Vitya"
+      "name": "Витя"
     },
     {
       "id": 3,
-      "name": "Misha"
+      "name": "Миша"
     },
     {
       "id": 4,
-      "name": "Danya"
+      "name": "Даня"
     },
     {
       "id": 5,
-      "name": "Kirill"
+      "name": "Кирилл"
     }
   ],
   "courses": [
     {
       "id": 1,
-      "title": "Math"
+      "title": "Математика"
     },
     {
       "id": 2,
-      "title": "Philosophy"
+      "title": "Философия"
     },
     {
       "id": 3,
-      "title": "3d modeling"
+      "title": "Тригонометрия"
     }
   ],
   "studentsData": [
