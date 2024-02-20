@@ -228,6 +228,8 @@ const HomePage: FC = () => {
         openModal={openModal}
         setOpenModal={setOpenModal}
         averageGrade={averageGrade}
+        quanityValidMissedClasses={quanityValidMissedClasses}
+        quanityInvalidMissedClasses={quanityInvalidMissedClasses}
         decision={decision}
       />
     </>

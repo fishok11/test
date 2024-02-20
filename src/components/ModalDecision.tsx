@@ -5,6 +5,8 @@ type ModalDesisionProps = {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   averageGrade: number | undefined;
+  quanityValidMissedClasses: number;
+  quanityInvalidMissedClasses: number;
   decision: string;
 };
 
@@ -12,6 +14,8 @@ const ModalDesision: FC<ModalDesisionProps> = ({
   openModal,
   setOpenModal,
   averageGrade,
+  quanityValidMissedClasses,
+  quanityInvalidMissedClasses,
   decision,
 }) => {
   return (
@@ -36,6 +40,12 @@ const ModalDesision: FC<ModalDesisionProps> = ({
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Средний балл: {averageGrade}
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Пропуски по уважительной причине: {quanityValidMissedClasses}
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Пропуски по неуважительной причине: {quanityInvalidMissedClasses}
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           {decision}
