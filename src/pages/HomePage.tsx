@@ -18,7 +18,7 @@ import {
   showErrorStudentName,
 } from '../app/mainSlice';
 import { Course, Student, StudentDataToAdded } from '../app/types';
-import ModalDesision from './ModalDecision';
+import ModalDesision from '../components/Modal/ModalDecision';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();

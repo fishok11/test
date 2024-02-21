@@ -1,29 +1,20 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './components/HomePage';
+import HomePage from './pages/HomePage';
 import Header from './components/Header/Header';
-import { Container } from '@mui/material';
-import StudentsPage from './components/StudentsPage';
+import StudentsPage from './pages/StudentsPage';
+import styles from './App.module.scss';
 
 function App() {
   return (
     <>
       <Header />
-      <Container
-        maxWidth="lg"
-        sx={{
-          minHeight: '80%',
-          height: 'max-content',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <div className={styles.main}>
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/students" element={<StudentsPage />} />
         </Routes>
-      </Container>
+      </div>
     </>
   );
 }
