@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, MenuItem, Stack, TextField } from '@mui/material';
+import { MenuItem, Stack, TextField } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
@@ -19,6 +19,7 @@ import {
 } from '../app/mainSlice';
 import { Course, Student, StudentDataToAdded } from '../app/types';
 import ModalDesision from '../components/Modal/ModalDecision';
+import Button from '../UI/Button/Button';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -224,9 +225,7 @@ const HomePage: FC = () => {
             setQuanityInvalidMissedClasses(parseInt(e.target.value))
           }
         />
-        <Button variant="contained" fullWidth onClick={() => handleSubmit()}>
-          Расчитать
-        </Button>
+        <Button text={'OK'} onClick={handleSubmit} />
       </Stack>
       <ModalDesision
         openModal={openModal}
