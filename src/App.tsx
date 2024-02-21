@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import { Container } from '@mui/material';
 import StudentsPage from './components/StudentsPage';
 
