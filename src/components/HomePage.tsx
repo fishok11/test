@@ -35,6 +35,10 @@ const HomePage: FC = () => {
   const [decision, setDecision] = useState('');
   const [openModal, setOpenModal] = React.useState(false);
   const handleSubmit = () => {
+    dispatch(hideErrorStudentName());
+    dispatch(hideErrorGradesCount());
+    dispatch(hideErrorGrades());
+    dispatch(hideErrorCourses());
     if (
       studentId === undefined ||
       courseId === undefined ||
@@ -95,10 +99,6 @@ const HomePage: FC = () => {
       decision: decision,
     };
     dispatch(addStudentData(studentData));
-    dispatch(hideErrorStudentName());
-    dispatch(hideErrorGradesCount());
-    dispatch(hideErrorGrades());
-    dispatch(hideErrorCourses());
     setOpenModal(true);
   };
   const handleGradeChange = (index: number, value: number) => {
@@ -135,7 +135,9 @@ const HomePage: FC = () => {
           defaultValue=""
           error={state.errorStudentName}
           helperText={state.errorStudentName ? 'Обязательное поле' : ''}
-          onChange={(e) => setStudentId(parseInt(e.target.value))}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setStudentId(parseInt(e.target.value))
+          }
         >
           {state.students?.map((item: Student) => (
             <MenuItem key={item.id} value={item.id}>
@@ -152,7 +154,9 @@ const HomePage: FC = () => {
           defaultValue=""
           error={state.errorCourses}
           helperText={state.errorCourses ? 'Обязательное поле' : ''}
-          onChange={(e) => setCourseId(parseInt(e.target.value))}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setCourseId(parseInt(e.target.value))
+          }
         >
           {state.courses?.map((item: Course) => (
             <MenuItem key={item.id} value={item.id}>
