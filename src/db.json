@@ -1,29 +1,29 @@
 {
   "students": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Петя"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Витя"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Миша"
     }
   ],
   "courses": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Математика"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Философия"
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Тригонометрия"
     }
   ],
@@ -31,15 +31,15 @@
     {
       "studentId": 1,
       "courseId": 1,
-      "averageGrade": 4,
-      "validMissedClasses": 0,
-      "invalidMissedClasses": 0,
+      "averageGrade": 1,
+      "validMissedClasses": 1,
+      "invalidMissedClasses": 1,
       "grades": [
-        3,
-        5,
-        4
+        1,
+        1,
+        1
       ],
-      "decision": "Зачет",
+      "decision": "Незачет",
       "id": "344e"
     },
     {

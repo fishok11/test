@@ -20,6 +20,7 @@ import {
 import { Course, Student, StudentDataToAdded } from '../app/types';
 import ModalDesision from '../components/Modal/ModalDecision';
 import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -165,7 +166,7 @@ const HomePage: FC = () => {
             </MenuItem>
           ))}
         </TextField>
-        <TextField
+        {/* <TextField
           id="outlined-basic"
           label="Количество оценок"
           variant="outlined"
@@ -179,51 +180,67 @@ const HomePage: FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setGradesCount(parseInt(e.target.value))
           }
+        /> */}
+        <Input
+          id={'grade'}
+          type={'number'}
+          min={0}
+          value={gradesCount}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setGradesCount(parseInt(e.target.value))
+          }
+          label={'Количество оценок'}
         />
         {Array.from({ length: gradesCount }).map((_, index) => (
-          <TextField
-            id="outlined-basic"
-            label="Оценка"
-            variant="outlined"
-            size="small"
-            fullWidth
-            type="number"
+          // <TextField
+          //   id="outlined-basic"
+          //   label="Оценка"
+          //   variant="outlined"
+          //   size="small"
+          //   fullWidth
+          //   type="number"
+          //   key={index}
+          //   inputProps={{ min: 0, max: 5 }}
+          //   error={state.errorGrades}
+          //   helperText={state.errorGrades ? 'Обязательное поле' : ''}
+          //   defaultValue={0}
+          //   value={grades[index]}
+          //   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          //     handleGradeChange(index, parseInt(e.target.value))
+          //   }
+          // />
+          <Input
             key={index}
-            inputProps={{ min: 0, max: 5 }}
-            error={state.errorGrades}
-            helperText={state.errorGrades ? 'Обязательное поле' : ''}
-            defaultValue={0}
+            id={'grade'}
+            type={'number'}
+            min={0}
+            max={5}
             value={grades[index]}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleGradeChange(index, parseInt(e.target.value))
             }
+            label={'Оценка'}
           />
         ))}
-        <TextField
-          id="outlined-basic"
-          label="Пропуски по уважительной причине"
-          variant="outlined"
-          size="small"
-          fullWidth
-          type="number"
-          inputProps={{ min: 0 }}
+        <Input
+          id={'vmc'}
+          type={'number'}
+          min={0}
           value={quanityValidMissedClasses}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setQuanityValidMissedClasses(parseInt(e.target.value))
           }
+          label={'Пропуски по неуважительной причине'}
         />
-        <TextField
-          id="outlined-basic"
-          label="Пропуски по неуважительной причине"
-          variant="outlined"
-          size="small"
-          fullWidth
-          type="number"
-          inputProps={{ min: 0 }}
+        <Input
+          id={'imc'}
+          type={'number'}
+          min={0}
           value={quanityInvalidMissedClasses}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setQuanityInvalidMissedClasses(parseInt(e.target.value))
           }
+          label={'Пропуски по неуважительной причине'}
         />
         <Button text={'OK'} onClick={handleSubmit} />
       </Stack>
