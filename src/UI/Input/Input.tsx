@@ -12,6 +12,8 @@ type InputProps = {
     | React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
     | undefined;
   label: string;
+  error: boolean;
+  helperText: string;
 };
 
 const Input: FC<Partial<InputProps>> = ({
@@ -23,6 +25,8 @@ const Input: FC<Partial<InputProps>> = ({
   value,
   onChange,
   label,
+  error,
+  helperText,
 }) => {
   return (
     <div className={styles.container}>
@@ -30,7 +34,7 @@ const Input: FC<Partial<InputProps>> = ({
         {label}
       </label>
       <input
-        className={styles.input}
+        className={error ? styles.inputError : styles.input}
         id={id}
         type={type}
         placeholder={placeholder}
@@ -38,27 +42,8 @@ const Input: FC<Partial<InputProps>> = ({
         max={max}
         value={value}
         onChange={onChange}
-      >
-        {/* <div id="dropdown" className={styles.dropdown}>
-          <ul className={styles.list} aria-labelledby="dropdown-button">
-            <li>
-              <a href="#" className={styles.itemList}>
-                Shopping
-              </a>
-            </li>
-            <li>
-              <a href="#" className={styles.itemList}>
-                Images
-              </a>
-            </li>
-            <li>
-              <a href="#" className={styles.itemList}>
-                News
-              </a>
-            </li>
-          </ul>
-        </div> */}
-      </input>
+      />
+      {error && <p className={styles.helperText}>{helperText}</p>}
     </div>
   );
 };

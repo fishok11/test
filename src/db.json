@@ -44,15 +44,9 @@
       "studentId": 1,
       "courseId": 2,
       "averageGrade": 4,
-      "validMissedClasses": 1,
-      "invalidMissedClasses": 2,
+      "validMissedClasses": 0,
+      "invalidMissedClasses": 0,
       "grades": [
-        4,
-        3,
-        5,
-        3,
-        4,
-        5,
         4
       ],
       "decision": "Зачет",
@@ -96,17 +90,16 @@
     {
       "studentId": 2,
       "courseId": 2,
-      "averageGrade": 4.25,
+      "averageGrade": 1,
       "validMissedClasses": 1,
-      "invalidMissedClasses": 2,
+      "invalidMissedClasses": 1,
       "grades": [
-        4,
-        4,
-        3,
-        3,
-        3
+        1,
+        1,
+        1,
+        1
       ],
-      "decision": "Зачет",
+      "decision": "Незачет",
       "id": "6fd0"
     },
     {
