@@ -21,6 +21,8 @@ import { Course, Student, StudentDataToAdded } from '../app/types';
 import ModalDesision from '../components/Modal/ModalDecision';
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
+import Select from '../UI/Select/Select';
+import SelectItem from '../UI/Select/SelectItem';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -128,7 +130,7 @@ const HomePage: FC = () => {
           pt: '30px',
         }}
       >
-        <TextField
+        {/* <TextField
           id="outlined-select-currency"
           select
           label="Выберите студента"
@@ -146,8 +148,19 @@ const HomePage: FC = () => {
               {item.name}
             </MenuItem>
           ))}
-        </TextField>
-        <TextField
+        </TextField> */}
+        <Select
+          label={'Выберите студента'}
+          value={studentId}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            setStudentId(parseInt(e.target.value));
+          }}
+        >
+          {state.students?.map((item: Student) => (
+            <SelectItem key={item.id} value={item.id} content={item.name} />
+          ))}
+        </Select>
+        {/* <TextField
           id="outlined-select-currency"
           select
           label="Выберите предмет"
@@ -165,7 +178,18 @@ const HomePage: FC = () => {
               {item.title}
             </MenuItem>
           ))}
-        </TextField>
+        </TextField> */}
+        <Select
+          label={'Выберите предмет'}
+          value={courseId}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            setCourseId(parseInt(e.target.value));
+          }}
+        >
+          {state.courses?.map((item: Course) => (
+            <SelectItem key={item.id} value={item.id} content={item.title} />
+          ))}
+        </Select>
         {/* <TextField
           id="outlined-basic"
           label="Количество оценок"
@@ -213,7 +237,7 @@ const HomePage: FC = () => {
             key={index}
             id={'grade'}
             type={'number'}
-            min={0}
+            min={1}
             max={5}
             value={grades[index]}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

@@ -1,0 +1,11 @@
+.container {
+  @apply w-full box-border;
+
+  .label {
+    @apply block mb-2 text-sm font-medium text-white;
+  }
+
+  .select {
+    @apply w-full block p-2 h-10 box-border rounded-md outline-none bg-gray-700 text-gray-400 border border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 focus:border-2;
+  }
+}

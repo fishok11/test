@@ -7,7 +7,7 @@ type InputProps = {
   placeholder: string;
   min: number;
   max: number;
-  value: any;
+  value: number | string | [];
   onChange:
     | React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
     | undefined;
@@ -38,7 +38,27 @@ const Input: FC<Partial<InputProps>> = ({
         max={max}
         value={value}
         onChange={onChange}
-      />
+      >
+        {/* <div id="dropdown" className={styles.dropdown}>
+          <ul className={styles.list} aria-labelledby="dropdown-button">
+            <li>
+              <a href="#" className={styles.itemList}>
+                Shopping
+              </a>
+            </li>
+            <li>
+              <a href="#" className={styles.itemList}>
+                Images
+              </a>
+            </li>
+            <li>
+              <a href="#" className={styles.itemList}>
+                News
+              </a>
+            </li>
+          </ul>
+        </div> */}
+      </input>
     </div>
   );
 };
