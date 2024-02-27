@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack } from '@mui/material';
+import { Stack, imageListClasses } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
@@ -23,6 +23,7 @@ import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';
 import Select from '../../UI/Select/Select';
 import SelectItem from '../../UI/Select/SelectItem';
+import styles from './HomePage.module.scss';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +61,7 @@ const HomePage: FC = () => {
       if (gradesCount === 0) {
         dispatch(showErrorGradesCount());
       }
-      if (grades.length === 0) {
+      if (grades.length === 0 && gradesCount !== 0) {
         dispatch(showErrorGrades());
       }
       return;
@@ -122,18 +123,7 @@ const HomePage: FC = () => {
 
   return (
     <>
-      <Stack
-        spacing={2}
-        sx={{
-          width: '450px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          m: 'auto',
-          pt: '30px',
-        }}
-      >
+      <div className={styles.container}>
         <Select
           label={'Выберите студента'}
           error={state.errorStudentName}
@@ -209,7 +199,7 @@ const HomePage: FC = () => {
           }
         />
         <Button text={'OK'} onClick={handleSubmit} />
-      </Stack>
+      </div>
       <ModalDesision
         openModal={openModal}
         setOpenModal={setOpenModal}
