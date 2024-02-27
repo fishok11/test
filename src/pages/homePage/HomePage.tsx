@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Stack } from '@mui/material';
 import { FC, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   addStudentData,
   getCourses,
@@ -16,13 +16,13 @@ import {
   showErrorGrades,
   showErrorGradesCount,
   showErrorStudentName,
-} from '../app/mainSlice';
-import { Course, Student, StudentDataToAdded } from '../app/types';
-import ModalDesision from '../components/Modal/ModalDecision';
-import Button from '../UI/Button/Button';
-import Input from '../UI/Input/Input';
-import Select from '../UI/Select/Select';
-import SelectItem from '../UI/Select/SelectItem';
+} from '../../app/mainSlice';
+import { Course, Student, StudentDataToAdded } from '../../app/types';
+import ModalDesision from '../../components/Modal/ModalDecision';
+import Button from '../../UI/Button/Button';
+import Input from '../../UI/Input/Input';
+import Select from '../../UI/Select/Select';
+import SelectItem from '../../UI/Select/SelectItem';
 
 const HomePage: FC = () => {
   const dispatch = useAppDispatch();

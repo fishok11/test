@@ -1,0 +1,15 @@
+.container {
+  @apply max-w-sm w-max bg-gray-800 border border-gray-700 rounded-lg shadow;
+
+  .img {
+    @apply rounded-t-lg;
+  }
+
+  .infoContainer {
+    @apply p-2;
+
+    .text {
+      @apply text-slate-200;
+    }
+  }
+}

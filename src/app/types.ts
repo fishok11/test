@@ -34,3 +34,38 @@ export type StudentData = {
 };
 
 export type StudentsData = StudentData[];
+
+export type Caracter = {
+  id: number;
+  name: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
+  origin: {
+    name: string;
+    url: string;
+  };
+  location: {
+    name: string;
+    url: string;
+  };
+  image: string;
+  episode: string[];
+  url: string;
+  created: string;
+};
+
+export type Characters = Caracter[];
+
+export type InfoPages = {
+  count: number;
+  pages: number;
+  next: string;
+  prev: string | null;
+};
+
+export type GetAllCharactersResponse = {
+  info: InfoPages;
+  results: Characters;
+};

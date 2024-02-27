@@ -1,1 +1,1 @@
-export const DEFAULT_URL = 'http://localhost:3002/';
+export const BASE_LOCAL_API_URL = 'http://localhost:3002/';

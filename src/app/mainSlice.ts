@@ -1,13 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import {
+  Characters,
   Courses,
+  GetAllCharactersResponse,
+  InfoPages,
   StudentData,
   StudentDataToAdded,
   Students,
   StudentsData,
 } from './types';
-import { DEFAULT_URL } from '../utils';
+import { BASE_LOCAL_API_URL } from '../utils';
 import axios from 'axios';
 
 export type InitialState = {
@@ -19,6 +22,8 @@ export type InitialState = {
   errorGradesCount: boolean;
   errorGrades: boolean;
   studentsData: StudentData[];
+  infoPages: InfoPages | null;
+  characters: Characters;
 };
 
 const initialState: InitialState = {
@@ -30,6 +35,8 @@ const initialState: InitialState = {
   errorGradesCount: false,
   errorGrades: false,
   studentsData: [],
+  infoPages: null,
+  characters: [],
 };
 
 export const getStudents = createAsyncThunk<
@@ -38,7 +45,7 @@ export const getStudents = createAsyncThunk<
   { rejectValue: string }
 >('test/getStudents', async (_, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(DEFAULT_URL + 'students');
+    const { data } = await axios.get(BASE_LOCAL_API_URL + 'students');
 
     return data;
   } catch (error) {
@@ -53,7 +60,7 @@ export const getCourses = createAsyncThunk<
   { rejectValue: string }
 >('test/getAcademicSubjects', async (_, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(DEFAULT_URL + 'courses');
+    const { data } = await axios.get(BASE_LOCAL_API_URL + 'courses');
 
     return data;
   } catch (error) {
@@ -84,18 +91,17 @@ export const addStudentData = createAsyncThunk<
         studentDataId = element.id;
       }
     }
-    console.log(isUpdate);
 
     try {
       if (isUpdate) {
         const { data } = await axios.put(
-          DEFAULT_URL + `studentsData/${studentDataId}`,
+          BASE_LOCAL_API_URL + `studentsData/${studentDataId}`,
           studentData,
         );
         return data;
       }
       const { data } = await axios.post(
-        DEFAULT_URL + 'studentsData',
+        BASE_LOCAL_API_URL + 'studentsData',
         studentData,
       );
       return data;
@@ -112,7 +118,24 @@ export const getStudentsData = createAsyncThunk<
   { rejectValue: string }
 >('test/getStudentsData', async (_, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(DEFAULT_URL + 'studentsData');
+    const { data } = await axios.get(BASE_LOCAL_API_URL + 'studentsData');
+    return data;
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue('Server error!');
+  }
+});
+
+export const getAllCharacters = createAsyncThunk<
+  GetAllCharactersResponse,
+  undefined,
+  { rejectValue: string }
+>('test/getAllCharacters', async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      'https://rickandmortyapi.com/api/character',
+    );
+
     return data;
   } catch (error) {
     console.log(error);
@@ -185,6 +208,17 @@ export const mainSlice = createSlice({
         getStudentsData.fulfilled,
         (state, action: PayloadAction<StudentsData>) => {
           state.studentsData = action.payload;
+          state.isLoading = false;
+        },
+      )
+      .addCase(getAllCharacters.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        getAllCharacters.fulfilled,
+        (state, action: PayloadAction<GetAllCharactersResponse>) => {
+          state.infoPages = action.payload.info;
+          state.characters = action.payload.results;
           state.isLoading = false;
         },
       );
