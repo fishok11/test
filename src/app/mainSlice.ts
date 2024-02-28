@@ -126,14 +126,14 @@ export const getStudentsData = createAsyncThunk<
   }
 });
 
-export const getAllCharacters = createAsyncThunk<
+export const getCharactersPage = createAsyncThunk<
   GetAllCharactersResponse,
-  undefined,
+  number,
   { rejectValue: string }
->('test/getAllCharacters', async (_, { rejectWithValue }) => {
+>('test/getCharactersPage', async (page: number, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(
-      'https://rickandmortyapi.com/api/character',
+      `https://rickandmortyapi.com/api/character/?page=${page}`,
     );
 
     return data;
@@ -211,11 +211,11 @@ export const mainSlice = createSlice({
           state.isLoading = false;
         },
       )
-      .addCase(getAllCharacters.pending, (state) => {
+      .addCase(getCharactersPage.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(
-        getAllCharacters.fulfilled,
+        getCharactersPage.fulfilled,
         (state, action: PayloadAction<GetAllCharactersResponse>) => {
           state.infoPages = action.payload.info;
           state.characters = action.payload.results;

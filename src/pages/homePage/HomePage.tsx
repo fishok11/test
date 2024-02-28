@@ -17,11 +17,11 @@ import {
   showErrorStudentName,
 } from '../../app/mainSlice';
 import { Course, Student, StudentDataToAdded } from '../../app/types';
-import ModalDesision from '../../components/Modal/ModalDecision';
-import Button from '../../UI/Button/Button';
-import Input from '../../UI/Input/Input';
-import Select from '../../UI/Select/Select';
-import SelectItem from '../../UI/Select/SelectItem';
+import ModalDesision from '../../components/modal/ModalDecision';
+import Button from '../../UI/button/Button';
+import Input from '../../UI/input/Input';
+import Select from '../../UI/select/Select';
+import SelectItem from '../../UI/select/SelectItem';
 import styles from './HomePage.module.scss';
 
 const HomePage: FC = () => {

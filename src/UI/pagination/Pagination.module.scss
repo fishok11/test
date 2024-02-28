@@ -1,0 +1,15 @@
+.container {
+  @apply inline-flex -space-x-px text-sm;
+
+  .itemPrev {
+    @apply flex items-center justify-center px-3 h-8 leading-tight rounded-s-lg border bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white;
+  }
+
+  .item {
+    @apply flex items-center justify-center px-3 h-8 leading-tight border bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white;
+  }
+
+  .itemNext {
+    @apply flex items-center justify-center px-3 h-8 leading-tight rounded-e-lg border bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white;
+  }
+}

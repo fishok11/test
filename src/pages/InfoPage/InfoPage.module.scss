@@ -1,3 +1,7 @@
-.container {
-  @apply grid grid-cols-4 gap-4 w-4/5;
+.layout {
+  @apply flex flex-col items-center justify-center gap-4;
+
+  .container {
+    @apply grid grid-cols-4 gap-4 w-4/5;
+  }
 }
