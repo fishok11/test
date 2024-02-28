@@ -22,7 +22,7 @@ export type InitialState = {
   errorGradesCount: boolean;
   errorGrades: boolean;
   studentsData: StudentData[];
-  infoPages: InfoPages | null;
+  infoPages: InfoPages;
   characters: Characters;
 };
 
@@ -35,7 +35,12 @@ const initialState: InitialState = {
   errorGradesCount: false,
   errorGrades: false,
   studentsData: [],
-  infoPages: null,
+  infoPages: {
+    count: null,
+    pages: null,
+    next: '',
+    prev: '',
+  },
   characters: [],
 };
 
@@ -126,14 +131,46 @@ export const getStudentsData = createAsyncThunk<
   }
 });
 
-export const getCharactersPage = createAsyncThunk<
+export const getCharactersFirstPage = createAsyncThunk<
   GetAllCharactersResponse,
-  number,
+  undefined,
   { rejectValue: string }
->('test/getCharactersPage', async (page: number, { rejectWithValue }) => {
+>('test/getCharactersFirstPage', async (_, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(
-      `https://rickandmortyapi.com/api/character/?page=${page}`,
+      `https://rickandmortyapi.com/api/character`,
+    );
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue('Server error!');
+  }
+});
+
+export const getCharactersPage = createAsyncThunk<
+  GetAllCharactersResponse,
+  string,
+  { rejectValue: string }
+>('test/getCharactersPage', async (url: string, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(url);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue('Server error!');
+  }
+});
+
+export const filterCaractersByName = createAsyncThunk<
+  GetAllCharactersResponse,
+  string,
+  { rejectValue: string }
+>('test/filterCaractersByName', async (name: string, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `https://rickandmortyapi.com/api/character/?name=${name}`,
     );
 
     return data;
@@ -211,11 +248,33 @@ export const mainSlice = createSlice({
           state.isLoading = false;
         },
       )
+      .addCase(getCharactersFirstPage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        getCharactersFirstPage.fulfilled,
+        (state, action: PayloadAction<GetAllCharactersResponse>) => {
+          state.infoPages = action.payload.info;
+          state.characters = action.payload.results;
+          state.isLoading = false;
+        },
+      )
       .addCase(getCharactersPage.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(
         getCharactersPage.fulfilled,
+        (state, action: PayloadAction<GetAllCharactersResponse>) => {
+          state.infoPages = action.payload.info;
+          state.characters = action.payload.results;
+          state.isLoading = false;
+        },
+      )
+      .addCase(filterCaractersByName.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        filterCaractersByName.fulfilled,
         (state, action: PayloadAction<GetAllCharactersResponse>) => {
           state.infoPages = action.payload.info;
           state.characters = action.payload.results;

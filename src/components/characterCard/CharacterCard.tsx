@@ -6,10 +6,9 @@ type CharacterCardProps = {
   id: number;
   name: string;
   image: string;
-  url: string;
 };
 
-const CharacterCard: FC<CharacterCardProps> = ({ id, name, image, url }) => {
+const CharacterCard: FC<CharacterCardProps> = ({ id, name, image }) => {
   return (
     <div className={styles.container}>
       <Link to={`/info/character/${id}`}>

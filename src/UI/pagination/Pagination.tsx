@@ -3,8 +3,8 @@ import { usePagination } from './logic/usePagination';
 import styles from './Pagination.module.scss';
 
 const Pagination: FC = () => {
-  const {state, currentPage, handleNextPage, handlePrevPage} = usePagination();
-  if (state.infoPages === null) return null;
+  const { state, currentPage, handleNextPage, handlePrevPage } =
+    usePagination();
 
   return (
     <>
@@ -12,21 +12,8 @@ const Pagination: FC = () => {
         <li className={styles.itemPrev} onClick={handlePrevPage}>
           Prev
         </li>
-        <li className={styles.item} onClick={handlePrevPage}>
-          1
-        </li>
-        <li className={styles.item} onClick={handlePrevPage}>
-          ...
-        </li>
-        <li className={styles.item} onClick={handlePrevPage}>
-          {currentPage}
-        </li>
-        <li className={styles.item} onClick={handlePrevPage}>
-          ...
-        </li>
-        <li className={styles.item} onClick={handlePrevPage}>
-          {state.infoPages.pages}
-        </li>
+        {/* <li className={styles.item}>{currentPage}</li> */}
+ 
         <li className={styles.itemNext} onClick={handleNextPage}>
           Next
         </li>

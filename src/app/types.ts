@@ -59,10 +59,10 @@ export type Caracter = {
 export type Characters = Caracter[];
 
 export type InfoPages = {
-  count: number;
-  pages: number;
-  next: string;
-  prev: string | null;
+  count: number | null;
+  pages: number | null;
+  next: string ;
+  prev: string ;
 };
 
 export type GetAllCharactersResponse = {
