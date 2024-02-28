@@ -8,12 +8,14 @@ const Pagination: FC = () => {
 
   return (
     <>
-      <ul className={styles.container}>
+      <p className={styles.text}>
+        <span className={styles.textPage}>{currentPage}</span> out of{' '}
+        <span className={styles.textPage}>{state.infoPages.pages}</span>
+      </p>
+      <ul className={styles.buttonsContainer}>
         <li className={styles.itemPrev} onClick={handlePrevPage}>
           Prev
         </li>
-        {/* <li className={styles.item}>{currentPage}</li> */}
- 
         <li className={styles.itemNext} onClick={handleNextPage}>
           Next
         </li>

@@ -1,4 +1,12 @@
-.container {
+.text {
+  @apply text-slate-400;
+
+  .textPage {
+    @apply text-white font-bold;
+  }
+}
+
+.buttonsContainer {
   @apply inline-flex -space-x-px text-sm;
 
   .itemPrev {
