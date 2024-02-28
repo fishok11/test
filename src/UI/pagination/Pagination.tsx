@@ -1,26 +1,11 @@
-import React, { FC, useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getCharactersPage, mainState } from '../../app/mainSlice';
+import React, { FC } from 'react';
+import { usePagination } from './logic/usePagination';
 import styles from './Pagination.module.scss';
 
 const Pagination: FC = () => {
-  const state = useAppSelector(mainState);
-  const dispatch = useAppDispatch();
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  useEffect(() => {
-    dispatch(getCharactersPage(currentPage));
-  }, [currentPage]);
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
+  const {state, currentPage, handleNextPage, handlePrevPage} = usePagination();
   if (state.infoPages === null) return null;
+
   return (
     <>
       <ul className={styles.container}>

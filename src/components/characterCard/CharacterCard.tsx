@@ -12,7 +12,7 @@ type CharacterCardProps = {
 const CharacterCard: FC<CharacterCardProps> = ({ id, name, image, url }) => {
   return (
     <div className={styles.container}>
-      <Link to={`/character/${id}`}>
+      <Link to={`/info/character/${id}`}>
         <img src={image} alt={image} className={styles.img} />
         <div className={styles.infoContainer}>
           <p className={styles.text}>{name}</p>

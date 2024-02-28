@@ -4,6 +4,7 @@ import { mainState } from '../../app/mainSlice';
 import CaracterCard from '../../components/characterCard/CharacterCard';
 import Pagination from '../../UI/pagination/Pagination';
 import styles from './InfoPage.module.scss';
+import Search from '../../UI/search/Search';
 
 const InfoPage: FC = () => {
   const state = useAppSelector(mainState);
@@ -12,6 +13,7 @@ const InfoPage: FC = () => {
 
   return (
     <div className={styles.layout}>
+      <Search />
       <div className={styles.container}>
         {state.characters.map((character) => (
           <CaracterCard
