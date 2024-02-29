@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
-import { filterCaractersByName, mainState } from '../../../app/mainSlice';
+import { filterCaracters, mainState } from '../../../app/mainSlice';
 import { Filters } from '../../../app/types';
 
 export const useFilters = () => {
@@ -22,10 +22,10 @@ export const useFilters = () => {
     setNameForSearch('');
     setStatus('');
     setGender('');
-  }
+  };
 
   useEffect(() => {
-    dispatch(filterCaractersByName(filters));
+    dispatch(filterCaracters(filters));
   }, [nameForSearch, status, gender]);
 
   return {

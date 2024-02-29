@@ -4,6 +4,8 @@ import {
   getCharactersFirstPage,
   getCharactersPage,
   mainState,
+  nextPage,
+  prevPage,
 } from '../../../app/mainSlice';
 
 export const usePagination = () => {
@@ -16,20 +18,19 @@ export const usePagination = () => {
   }, []);
 
   const handlePrevPage = () => {
-    if (currentPage === 1) return;
-    setCurrentPage((prevPage) => prevPage - 1);
+    if (state.currentPage === 1) return;
+    dispatch(prevPage());
     dispatch(getCharactersPage(state.infoPages.prev));
   };
 
   const handleNextPage = () => {
-    if (currentPage === state.infoPages.pages) return;
-    setCurrentPage((prevPage) => prevPage + 1);
+    if (state.currentPage === state.infoPages.pages) return;
+    dispatch(nextPage());
     dispatch(getCharactersPage(state.infoPages.next));
   };
 
   return {
     state,
-    currentPage,
     handlePrevPage,
     handleNextPage,
   };

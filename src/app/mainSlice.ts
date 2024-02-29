@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { AppDispatch, RootState } from './store';
 import {
   Characters,
   Courses,
@@ -25,6 +25,7 @@ export type InitialState = {
   studentsData: StudentData[];
   infoPages: InfoPages;
   characters: Characters;
+  currentPage: number;
 };
 
 const initialState: InitialState = {
@@ -43,6 +44,7 @@ const initialState: InitialState = {
     prev: '',
   },
   characters: [],
+  currentPage: 1,
 };
 
 export const getStudents = createAsyncThunk<
@@ -165,25 +167,22 @@ export const getCharactersPage = createAsyncThunk<
   }
 });
 
-export const filterCaractersByName = createAsyncThunk<
+export const filterCaracters = createAsyncThunk<
   GetAllCharactersResponse,
   Filters,
-  { rejectValue: string }
->(
-  'test/filterCaractersByName',
-  async (filters: Filters, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(
-        `https://rickandmortyapi.com/api/character/?name=${filters.name}&status=${filters.status}&gender=${filters.gender}`,
-      );
+  { rejectValue: string; dispatch: AppDispatch }
+>('test/filterCaracters', async (filters: Filters, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `https://rickandmortyapi.com/api/character/?name=${filters.name}&status=${filters.status}&gender=${filters.gender}`,
+    );
 
-      return data;
-    } catch (error) {
-      console.log(error);
-      return rejectWithValue('Server error!');
-    }
-  },
-);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue('Server error!');
+  }
+});
 
 export const mainSlice = createSlice({
   name: 'main',
@@ -212,6 +211,12 @@ export const mainSlice = createSlice({
     },
     hideErrorGrades: (state) => {
       state.errorGrades = false;
+    },
+    nextPage: (state) => {
+      state.currentPage = state.currentPage + 1;
+    },
+    prevPage: (state) => {
+      state.currentPage = state.currentPage - 1;
     },
   },
 
@@ -275,15 +280,16 @@ export const mainSlice = createSlice({
           state.isLoading = false;
         },
       )
-      .addCase(filterCaractersByName.pending, (state) => {
+      .addCase(filterCaracters.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(
-        filterCaractersByName.fulfilled,
+        filterCaracters.fulfilled,
         (state, action: PayloadAction<GetAllCharactersResponse>) => {
           state.infoPages = action.payload.info;
           state.characters = action.payload.results;
           state.isLoading = false;
+          state.currentPage = initialState.currentPage;
         },
       );
   },
@@ -298,6 +304,8 @@ export const {
   hideErrorGradesCount,
   showErrorGrades,
   hideErrorGrades,
+  nextPage,
+  prevPage,
 } = mainSlice.actions;
 
 export const mainState = (state: RootState) => state.main;
