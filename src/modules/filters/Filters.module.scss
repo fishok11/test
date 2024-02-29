@@ -7,7 +7,9 @@
 
   .selectContainer {
     @apply w-32;
-    
+  }
 
+  .clearButton {
+    @apply flex justify-center items-center text-center rounded-full w-4 h-4 p-1 bg-red-500 text-white;
   }
 }

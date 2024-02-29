@@ -6,8 +6,19 @@ import Dropdown from '../../UI/dropdown/Dropdown';
 import DropdownItem from '../../UI/dropdown/DropdownItem';
 
 const Filters = () => {
-  const { state, nameForSearch, setNameForSearch, status, setStatus } =
-    useFilters();
+  const {
+    state,
+    nameForSearch,
+    setNameForSearch,
+    status,
+    setStatus,
+    statuses,
+    gender,
+    setGender,
+    genders,
+    handleClear,
+  } = useFilters();
+
   return (
     <div className={styles.filtersContainer}>
       <div className={styles.inputContainer}>
@@ -21,7 +32,7 @@ const Filters = () => {
       </div>
       <div className={styles.selectContainer}>
         <Dropdown placeholder={'Status'} value={status}>
-          {['alive', 'dead', 'unknown'].map((status) => (
+          {statuses.map((status) => (
             <DropdownItem
               key={status}
               text={status}
@@ -30,6 +41,20 @@ const Filters = () => {
           ))}
         </Dropdown>
       </div>
+      <div className={styles.selectContainer}>
+        <Dropdown placeholder={'Gender'} value={gender}>
+          {genders.map((gender) => (
+            <DropdownItem
+              key={gender}
+              text={gender}
+              onClick={() => setGender(gender)}
+            />
+          ))}
+        </Dropdown>
+      </div>
+      {(nameForSearch !== '' || status !== '' || gender !== '') && (
+        <button className={styles.clearButton} onClick={() => handleClear()} />
+      )}
     </div>
   );
 };

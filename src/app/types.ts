@@ -69,3 +69,9 @@ export type GetAllCharactersResponse = {
   info: InfoPages;
   results: Characters;
 };
+
+export type Filters = {
+  name: string;
+  status: string;
+  gender: string;
+};

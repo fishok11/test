@@ -3,6 +3,7 @@ import { RootState } from './store';
 import {
   Characters,
   Courses,
+  Filters,
   GetAllCharactersResponse,
   InfoPages,
   StudentData,
@@ -166,20 +167,23 @@ export const getCharactersPage = createAsyncThunk<
 
 export const filterCaractersByName = createAsyncThunk<
   GetAllCharactersResponse,
-  string,
+  Filters,
   { rejectValue: string }
->('test/filterCaractersByName', async (name: string, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.get(
-      `https://rickandmortyapi.com/api/character/?name=${name}`,
-    );
+>(
+  'test/filterCaractersByName',
+  async (filters: Filters, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `https://rickandmortyapi.com/api/character/?name=${filters.name}&status=${filters.status}&gender=${filters.gender}`,
+      );
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    return rejectWithValue('Server error!');
-  }
-});
+      return data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue('Server error!');
+    }
+  },
+);
 
 export const mainSlice = createSlice({
   name: 'main',
