@@ -2,17 +2,12 @@ import React from 'react';
 import styles from './Filters.module.scss';
 import Input from '../../UI/input/Input';
 import { useFilters } from './logic/useFilters';
+import Dropdown from '../../UI/dropdown/Dropdown';
+import DropdownItem from '../../UI/dropdown/DropdownItem';
 
 const Filters = () => {
-  const {
-    state,
-    nameForSearch,
-    setNameForSearch,
-    status,
-    setStatus,
-    open,
-    setOpen,
-  } = useFilters();
+  const { state, nameForSearch, setNameForSearch, status, setStatus } =
+    useFilters();
   return (
     <div className={styles.filtersContainer}>
       <div className={styles.inputContainer}>
@@ -25,27 +20,15 @@ const Filters = () => {
         />
       </div>
       <div className={styles.selectContainer}>
-        <input
-          className={styles.select}
-          value={status !== '' ? status : 'Status'}
-          onClick={() => setOpen(!open)}
-          readOnly
-        ></input>
-        {open && (
-          <div>
-            <ul className={styles.selectItemsContainer}>
-              {['alive', 'dead', 'unknown'].map((status) => (
-                <li
-                  key={status}
-                  className={styles.selectItem}
-                  onClick={() => (setStatus(status), setOpen(false))}
-                >
-                  {status}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <Dropdown placeholder={'Status'} value={status}>
+          {['alive', 'dead', 'unknown'].map((status) => (
+            <DropdownItem
+              key={status}
+              text={status}
+              onClick={() => setStatus(status)}
+            />
+          ))}
+        </Dropdown>
       </div>
     </div>
   );

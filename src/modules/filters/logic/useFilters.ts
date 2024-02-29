@@ -7,7 +7,6 @@ export const useFilters = () => {
   const dispatch = useAppDispatch();
   const [nameForSearch, setNameForSearch] = useState('');
   const [status, setStatus] = useState(''); 
-  const [open, setOpen] = useState(false);
 
   const filters = {
     nameForSearch,
@@ -25,7 +24,5 @@ export const useFilters = () => {
     setNameForSearch,
     status,
     setStatus,
-    open,
-    setOpen,
   };
 };
