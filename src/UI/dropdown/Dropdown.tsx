@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import styles from './Dropdown.module.scss';
 import { useDropdown } from './logic/useDropdown';
 
@@ -17,9 +17,10 @@ const Dropdown: FC<Partial<DropdownProps>> = ({
   value,
   children,
 }) => {
-  const { open, setOpen } = useDropdown();
+  const { open, setOpen, dropdownRef } = useDropdown();
+  
   return (
-    <>
+    <div>
       <label htmlFor={placeholder} className={styles.label}>
         {label}
       </label>
@@ -32,11 +33,11 @@ const Dropdown: FC<Partial<DropdownProps>> = ({
         readOnly
       />
       {open && (
-        <div>
+        <div ref={dropdownRef} onClick={() => setOpen(false)}>
           <ul className={styles.selectItemsContainer}>{children}</ul>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
