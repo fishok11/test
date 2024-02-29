@@ -10,7 +10,7 @@ type SelectProps = {
   helperText: string;
 };
 
-const Select: FC<SelectProps> = ({
+const Select: FC<Partial<SelectProps>> = ({
   children,
   label,
   value,

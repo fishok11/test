@@ -2,25 +2,17 @@ import React, { FC } from 'react';
 import CaracterCard from '../../components/characterCard/CharacterCard';
 import Pagination from '../../UI/pagination/Pagination';
 import styles from './InfoPage.module.scss';
-import Input from '../../UI/input/Input';
 import { useInfoPage } from './logic/useInfoPaje';
+import Filters from '../../modules/filters/Filters';
 
 const InfoPage: FC = () => {
-  const { state, nameForSearch, setNameForSearch } = useInfoPage();
+  const { state } = useInfoPage();
 
   if (state.characters === undefined) return null;
 
   return (
     <div className={styles.layout}>
-      <div className={styles.searchContainer}>
-        <Input
-          id={'search'}
-          type={'search'}
-          placeholder={'Search by name...'}
-          value={nameForSearch}
-          onChange={(e) => setNameForSearch(e.target.value)}
-        />
-      </div>
+      <Filters />
       <div className={styles.charactersContainer}>
         {state.characters.map((character) => (
           <CaracterCard
