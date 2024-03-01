@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC } from 'react';
 import styles from './Dropdown.module.scss';
 import { useDropdown } from './logic/useDropdown';
 
@@ -16,9 +16,11 @@ const Dropdown: FC<Partial<DropdownProps>> = ({
   placeholder,
   value,
   children,
+  error,
+  helperText,
 }) => {
   const { open, setOpen, dropdownRef } = useDropdown();
-  
+
   return (
     <div>
       <label htmlFor={placeholder} className={styles.label}>
@@ -27,7 +29,7 @@ const Dropdown: FC<Partial<DropdownProps>> = ({
       <input
         id={placeholder}
         placeholder={placeholder}
-        className={styles.select}
+        className={error ? styles.selectError : styles.select}
         value={value}
         onClick={() => setOpen(!open)}
         readOnly
@@ -37,6 +39,7 @@ const Dropdown: FC<Partial<DropdownProps>> = ({
           <ul className={styles.selectItemsContainer}>{children}</ul>
         </div>
       )}
+      {error && <p className={styles.helperText}>{helperText}</p>}
     </div>
   );
 };

@@ -119,7 +119,6 @@ export const getStudentsData = createAsyncThunk<
   }
 });
 
-
 export const mainSlice = createSlice({
   name: 'main',
   initialState,
@@ -187,7 +186,7 @@ export const mainSlice = createSlice({
           state.studentsData = action.payload;
           state.isLoading = false;
         },
-      )
+      );
   },
 });
 

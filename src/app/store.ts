@@ -2,7 +2,6 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import mainReducer from './mainSlice';
 import rickAndMortyReducer from './rickAndMprtySlice';
 
-
 export const store = configureStore({
   reducer: {
     main: mainReducer,

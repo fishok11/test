@@ -6,6 +6,14 @@
   @apply w-full block p-2 h-10 box-border rounded-lg outline-none cursor-pointer bg-gray-700 text-gray-400 border border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 focus:border-2;
 }
 
+.selectError {
+  @apply w-full block p-2 h-10 box-border rounded-lg outline-none bg-gray-700 text-gray-400  border-2 border-red-400;
+}
+
+.helperText {
+  @apply text-red-400 text-sm font-light;
+}
+
 .selectItemsContainer {
   @apply z-10 absolute bg-gray-700 rounded-lg shadow w-44 py-2 text-sm text-gray-400 mt-2;
 
