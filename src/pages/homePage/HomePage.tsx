@@ -60,7 +60,7 @@ const HomePage: FC = () => {
       if (gradesCount === 0) {
         dispatch(showErrorGradesCount());
       }
-      if (grades.length === 0 && gradesCount !== 0) {
+      if ((grades.length === 0 && gradesCount !== 0) || grades.includes(NaN)) {
         dispatch(showErrorGrades());
       }
       return;
@@ -169,8 +169,12 @@ const HomePage: FC = () => {
             min={1}
             max={5}
             label={'Оценка'}
-            error={state.errorGrades}
-            helperText={'Обязательное поле'}
+            error={state.errorGrades || grades[index] > 5 || grades[index] < 1}
+            helperText={
+              grades[index] > 5 || grades[index] < 1
+                ? 'Оцека должна быть в диапазоне от 1 до 5'
+                : 'Обязательное поле'
+            }
             value={grades[index]}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleGradeChange(index, parseInt(e.target.value))

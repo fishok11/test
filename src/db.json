@@ -31,11 +31,12 @@
     {
       "studentId": 1,
       "courseId": 1,
-      "averageGrade": 3,
-      "validMissedClasses": 3,
-      "invalidMissedClasses": 3,
+      "averageGrade": null,
+      "validMissedClasses": 0,
+      "invalidMissedClasses": 0,
       "grades": [
-        3
+        null,
+        null
       ],
       "decision": "Незачет",
       "id": "344e"
@@ -72,20 +73,17 @@
       "decision": "Зачет"
     },
     {
-      "id": "d5e6",
       "studentId": 2,
       "courseId": 1,
-      "averageGrade": 3.4,
-      "validMissedClasses": 1,
-      "invalidMissedClasses": 1,
+      "averageGrade": null,
+      "validMissedClasses": 0,
+      "invalidMissedClasses": 0,
       "grades": [
-        4,
-        4,
-        3,
-        3,
-        3
+        null,
+        null
       ],
-      "decision": "Зачет"
+      "decision": "Незачет",
+      "id": "d5e6"
     },
     {
       "studentId": 2,
