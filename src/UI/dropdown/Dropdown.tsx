@@ -22,7 +22,7 @@ const Dropdown: FC<Partial<DropdownProps>> = ({
   const { open, setOpen, dropdownRef } = useDropdown();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={dropdownRef}>
       <label htmlFor={placeholder} className={styles.label}>
         {label}
       </label>
@@ -35,7 +35,7 @@ const Dropdown: FC<Partial<DropdownProps>> = ({
         readOnly
       />
       {open && (
-        <div ref={dropdownRef} onClick={() => setOpen(false)}>
+        <div onClick={() => setOpen(false)}>
           <ul className={styles.selectItemsContainer}>{children}</ul>
         </div>
       )}
