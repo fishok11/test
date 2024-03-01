@@ -6,7 +6,7 @@ type DropdownItemProps = {
   onClick: () => void;
 };
 
-const DropdownItem: FC<DropdownItemProps> = ({ text, onClick  }) => {
+const DropdownItem: FC<DropdownItemProps> = ({ text, onClick }) => {
   return (
     <li className={styles.selectItem} onClick={onClick}>
       {text}
