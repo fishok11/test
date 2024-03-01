@@ -51,7 +51,6 @@ export const getCharactersPage = createAsyncThunk<
 >('test/getCharactersPage', async (url: string, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(url);
-    console.log(data);
 
     return data;
   } catch (error) {

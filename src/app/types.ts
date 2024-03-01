@@ -61,8 +61,8 @@ export type Characters = Caracter[];
 export type InfoPages = {
   count: number | null;
   pages: number | null;
-  next: string ;
-  prev: string ;
+  next: string | null;
+  prev: string | null;
 };
 
 export type GetAllCharactersResponse = {

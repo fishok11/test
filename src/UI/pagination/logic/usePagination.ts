@@ -19,13 +19,17 @@ export const usePagination = () => {
   const handlePrevPage = () => {
     if (charactersState.currentPage === 1) return;
     dispatch(prevPage());
-    dispatch(getCharactersPage(charactersState.infoPages.prev));
+    if (charactersState.infoPages.prev) {
+      dispatch(getCharactersPage(charactersState.infoPages.prev));
+    }
   };
 
   const handleNextPage = () => {
     if (charactersState.currentPage === charactersState.infoPages.pages) return;
     dispatch(nextPage());
-    dispatch(getCharactersPage(charactersState.infoPages.next));
+    if (charactersState.infoPages.next) {
+      dispatch(getCharactersPage(charactersState.infoPages.next));
+    }
   };
 
   return {
