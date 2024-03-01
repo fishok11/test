@@ -11,7 +11,7 @@ type CharacterCardProps = {
 const CharacterCard: FC<CharacterCardProps> = ({ id, name, image }) => {
   return (
     <div className={styles.container}>
-      <Link to={`/info/character/${id}`}>
+      <Link to={`/info/character/${id}`} target={'_blank'}>
         <img src={image} alt={image} className={styles.img} />
         <div className={styles.infoContainer}>
           <p className={styles.text}>{name}</p>
