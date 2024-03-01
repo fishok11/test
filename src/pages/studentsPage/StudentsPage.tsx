@@ -1,11 +1,11 @@
 import React, { FC, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   getStudentsData,
   getStudents,
   mainState,
   getCourses,
-} from '../app/mainSlice';
+} from '../../app/mainSlice';
 import {
   Accordion,
   AccordionDetails,
@@ -19,7 +19,7 @@ import {
   TableRow,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Course, Student, StudentData } from '../app/types';
+import { Course, Student, StudentData } from '../../app/types';
 
 const StudentsPage: FC = () => {
   const state = useAppSelector(mainState);

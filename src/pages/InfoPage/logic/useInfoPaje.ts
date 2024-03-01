@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
-import { rickAndMortyState } from '../../../app/rickAndMprtySlice';
+import { rickAndMortyState } from '../../../app/rickAndMortySlice';
 
 export const useInfoPage = () => {
   const charactersState = useAppSelector(rickAndMortyState);

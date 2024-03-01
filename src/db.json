@@ -31,12 +31,12 @@
     {
       "studentId": 1,
       "courseId": 1,
-      "averageGrade": null,
+      "averageGrade": 3,
       "validMissedClasses": 0,
       "invalidMissedClasses": 0,
       "grades": [
-        null,
-        null
+        3,
+        3
       ],
       "decision": "Незачет",
       "id": "344e"
@@ -75,12 +75,12 @@
     {
       "studentId": 2,
       "courseId": 1,
-      "averageGrade": null,
+      "averageGrade": 3,
       "validMissedClasses": 0,
       "invalidMissedClasses": 0,
       "grades": [
-        null,
-        null
+        3,
+        3
       ],
       "decision": "Незачет",
       "id": "d5e6"

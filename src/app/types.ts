@@ -35,7 +35,7 @@ export type StudentData = {
 
 export type StudentsData = StudentData[];
 
-export type Caracter = {
+export type Character = {
   id: number;
   name: string;
   status: string;
@@ -56,7 +56,7 @@ export type Caracter = {
   created: string;
 };
 
-export type Characters = Caracter[];
+export type Characters = Character[];
 
 export type InfoPages = {
   count: number | null;

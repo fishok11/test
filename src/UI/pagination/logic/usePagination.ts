@@ -6,7 +6,7 @@ import {
   nextPage,
   prevPage,
   rickAndMortyState,
-} from '../../../app/rickAndMprtySlice';
+} from '../../../app/rickAndMortySlice';
 
 export const usePagination = () => {
   const charactersState = useAppSelector(rickAndMortyState);

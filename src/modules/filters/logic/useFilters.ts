@@ -4,7 +4,7 @@ import { Filters } from '../../../app/types';
 import {
   filterCaracters,
   rickAndMortyState,
-} from '../../../app/rickAndMprtySlice';
+} from '../../../app/rickAndMortySlice';
 
 export const useFilters = () => {
   const charactersState = useAppSelector(rickAndMortyState);

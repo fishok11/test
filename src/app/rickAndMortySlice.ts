@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppDispatch, RootState } from './store';
+import { RootState } from './store';
 import {
+  Character,
   Characters,
   Filters,
   GetAllCharactersResponse,
@@ -11,6 +12,7 @@ import axios from 'axios';
 export type InitialState = {
   infoPages: InfoPages;
   characters: Characters;
+  character: Character;
   currentPage: number;
   isLoading: boolean;
 };
@@ -23,6 +25,26 @@ const initialState: InitialState = {
     prev: '',
   },
   characters: [],
+  character: {
+    id: 0,
+    name: '',
+    status: '',
+    species: '',
+    type: '',
+    gender: '',
+    origin: {
+      name: '',
+      url: '',
+    },
+    location: {
+      name: '',
+      url: '',
+    },
+    image: '',
+    episode: [],
+    url: '',
+    created: '',
+  },
   currentPage: 1,
   isLoading: false,
 };
@@ -62,11 +84,28 @@ export const getCharactersPage = createAsyncThunk<
 export const filterCaracters = createAsyncThunk<
   GetAllCharactersResponse,
   Filters,
-  { rejectValue: string; dispatch: AppDispatch }
+  { rejectValue: string }
 >('test/filterCaracters', async (filters: Filters, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(
       `https://rickandmortyapi.com/api/character/?name=${filters.name}&status=${filters.status}&gender=${filters.gender}`,
+    );
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue('Server error!');
+  }
+});
+
+export const getCharacter = createAsyncThunk<
+  Character,
+  string,
+  { rejectValue: string }
+>('test/getCharacter', async (characterId: string, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `https://rickandmortyapi.com/api/character/${characterId}`,
     );
 
     return data;
@@ -122,6 +161,16 @@ export const rickAndMortySlice = createSlice({
           state.infoPages = action.payload.info;
           state.characters = action.payload.results;
           state.currentPage = initialState.currentPage;
+          state.isLoading = false;
+        },
+      )
+      .addCase(getCharacter.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        getCharacter.fulfilled,
+        (state, action: PayloadAction<Character>) => {
+          state.character = action.payload;
           state.isLoading = false;
         },
       );
