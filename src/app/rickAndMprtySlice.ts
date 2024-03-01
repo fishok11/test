@@ -98,6 +98,7 @@ export const rickAndMortySlice = createSlice({
         (state, action: PayloadAction<GetAllCharactersResponse>) => {
           state.infoPages = action.payload.info;
           state.characters = action.payload.results;
+          state.currentPage = initialState.currentPage;
           state.isLoading = false;
         },
       )
@@ -120,8 +121,8 @@ export const rickAndMortySlice = createSlice({
         (state, action: PayloadAction<GetAllCharactersResponse>) => {
           state.infoPages = action.payload.info;
           state.characters = action.payload.results;
-          state.isLoading = false;
           state.currentPage = initialState.currentPage;
+          state.isLoading = false;
         },
       );
   },

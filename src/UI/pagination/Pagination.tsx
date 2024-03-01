@@ -15,10 +15,20 @@ const Pagination: FC = () => {
         </span>
       </p>
       <div className={styles.buttonsContainer}>
-        <button className={styles.itemPrev} onClick={handlePrevPage}>
+        <button
+          className={styles.itemPrev}
+          disabled={charactersState.currentPage === 1}
+          onClick={handlePrevPage}
+        >
           Prev
         </button>
-        <button className={styles.itemNext} onClick={handleNextPage}>
+        <button
+          className={styles.itemNext}
+          disabled={
+            charactersState.currentPage === charactersState.infoPages.pages
+          }
+          onClick={handleNextPage}
+        >
           Next
         </button>
       </div>

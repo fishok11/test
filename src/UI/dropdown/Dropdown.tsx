@@ -22,7 +22,7 @@ const Dropdown: FC<Partial<DropdownProps>> = ({
   const { open, setOpen, dropdownRef } = useDropdown();
 
   return (
-    <div>
+    <div className={styles.container}>
       <label htmlFor={placeholder} className={styles.label}>
         {label}
       </label>
