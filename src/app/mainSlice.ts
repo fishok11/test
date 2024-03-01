@@ -1,11 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppDispatch, RootState } from './store';
+import { RootState } from './store';
 import {
-  Characters,
   Courses,
-  Filters,
-  GetAllCharactersResponse,
-  InfoPages,
   StudentData,
   StudentDataToAdded,
   Students,
@@ -23,9 +19,6 @@ export type InitialState = {
   errorGradesCount: boolean;
   errorGrades: boolean;
   studentsData: StudentData[];
-  infoPages: InfoPages;
-  characters: Characters;
-  currentPage: number;
 };
 
 const initialState: InitialState = {
@@ -37,14 +30,6 @@ const initialState: InitialState = {
   errorGradesCount: false,
   errorGrades: false,
   studentsData: [],
-  infoPages: {
-    count: null,
-    pages: null,
-    next: '',
-    prev: '',
-  },
-  characters: [],
-  currentPage: 1,
 };
 
 export const getStudents = createAsyncThunk<
@@ -134,55 +119,6 @@ export const getStudentsData = createAsyncThunk<
   }
 });
 
-export const getCharactersFirstPage = createAsyncThunk<
-  GetAllCharactersResponse,
-  undefined,
-  { rejectValue: string }
->('test/getCharactersFirstPage', async (_, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.get(
-      `https://rickandmortyapi.com/api/character`,
-    );
-
-    return data;
-  } catch (error) {
-    console.log(error);
-    return rejectWithValue('Server error!');
-  }
-});
-
-export const getCharactersPage = createAsyncThunk<
-  GetAllCharactersResponse,
-  string,
-  { rejectValue: string }
->('test/getCharactersPage', async (url: string, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.get(url);
-    console.log(data);
-
-    return data;
-  } catch (error) {
-    console.log(error);
-    return rejectWithValue('Server error!');
-  }
-});
-
-export const filterCaracters = createAsyncThunk<
-  GetAllCharactersResponse,
-  Filters,
-  { rejectValue: string; dispatch: AppDispatch }
->('test/filterCaracters', async (filters: Filters, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.get(
-      `https://rickandmortyapi.com/api/character/?name=${filters.name}&status=${filters.status}&gender=${filters.gender}`,
-    );
-
-    return data;
-  } catch (error) {
-    console.log(error);
-    return rejectWithValue('Server error!');
-  }
-});
 
 export const mainSlice = createSlice({
   name: 'main',
@@ -211,12 +147,6 @@ export const mainSlice = createSlice({
     },
     hideErrorGrades: (state) => {
       state.errorGrades = false;
-    },
-    nextPage: (state) => {
-      state.currentPage = state.currentPage + 1;
-    },
-    prevPage: (state) => {
-      state.currentPage = state.currentPage - 1;
     },
   },
 
@@ -258,40 +188,6 @@ export const mainSlice = createSlice({
           state.isLoading = false;
         },
       )
-      .addCase(getCharactersFirstPage.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(
-        getCharactersFirstPage.fulfilled,
-        (state, action: PayloadAction<GetAllCharactersResponse>) => {
-          state.infoPages = action.payload.info;
-          state.characters = action.payload.results;
-          state.isLoading = false;
-        },
-      )
-      .addCase(getCharactersPage.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(
-        getCharactersPage.fulfilled,
-        (state, action: PayloadAction<GetAllCharactersResponse>) => {
-          state.infoPages = action.payload.info;
-          state.characters = action.payload.results;
-          state.isLoading = false;
-        },
-      )
-      .addCase(filterCaracters.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(
-        filterCaracters.fulfilled,
-        (state, action: PayloadAction<GetAllCharactersResponse>) => {
-          state.infoPages = action.payload.info;
-          state.characters = action.payload.results;
-          state.isLoading = false;
-          state.currentPage = initialState.currentPage;
-        },
-      );
   },
 });
 
@@ -304,8 +200,6 @@ export const {
   hideErrorGradesCount,
   showErrorGrades,
   hideErrorGrades,
-  nextPage,
-  prevPage,
 } = mainSlice.actions;
 
 export const mainState = (state: RootState) => state.main;

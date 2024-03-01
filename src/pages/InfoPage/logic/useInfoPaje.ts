@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
-import { mainState } from '../../../app/mainSlice';
+import { rickAndMortyState } from '../../../app/rickAndMprtySlice';
 
 export const useInfoPage = () => {
-  const state = useAppSelector(mainState);
+  const charactersState = useAppSelector(rickAndMortyState);
   const dispatch = useAppDispatch();
 
   return {
-    state,
+    charactersState,
     dispatch,
   };
 };

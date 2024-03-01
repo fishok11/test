@@ -7,7 +7,7 @@ import DropdownItem from '../../UI/dropdown/DropdownItem';
 
 const Filters = () => {
   const {
-    state,
+    charactersState,
     nameForSearch,
     setNameForSearch,
     status,

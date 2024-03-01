@@ -3,34 +3,33 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import {
   getCharactersFirstPage,
   getCharactersPage,
-  mainState,
   nextPage,
   prevPage,
-} from '../../../app/mainSlice';
+  rickAndMortyState,
+} from '../../../app/rickAndMprtySlice';
 
 export const usePagination = () => {
-  const state = useAppSelector(mainState);
+  const charactersState = useAppSelector(rickAndMortyState);
   const dispatch = useAppDispatch();
-  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     dispatch(getCharactersFirstPage());
   }, []);
 
   const handlePrevPage = () => {
-    if (state.currentPage === 1) return;
+    if (charactersState.currentPage === 1) return;
     dispatch(prevPage());
-    dispatch(getCharactersPage(state.infoPages.prev));
+    dispatch(getCharactersPage(charactersState.infoPages.prev));
   };
 
   const handleNextPage = () => {
-    if (state.currentPage === state.infoPages.pages) return;
+    if (charactersState.currentPage === charactersState.infoPages.pages) return;
     dispatch(nextPage());
-    dispatch(getCharactersPage(state.infoPages.next));
+    dispatch(getCharactersPage(charactersState.infoPages.next));
   };
 
   return {
-    state,
+    charactersState,
     handlePrevPage,
     handleNextPage,
   };

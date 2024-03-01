@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
-import { filterCaracters, mainState } from '../../../app/mainSlice';
 import { Filters } from '../../../app/types';
+import {
+  filterCaracters,
+  rickAndMortyState,
+} from '../../../app/rickAndMprtySlice';
 
 export const useFilters = () => {
-  const state = useAppSelector(mainState);
+  const charactersState = useAppSelector(rickAndMortyState);
   const dispatch = useAppDispatch();
   const [nameForSearch, setNameForSearch] = useState('');
   const [status, setStatus] = useState('');
@@ -29,7 +32,7 @@ export const useFilters = () => {
   }, [nameForSearch, status, gender]);
 
   return {
-    state,
+    charactersState,
     dispatch,
     nameForSearch,
     setNameForSearch,

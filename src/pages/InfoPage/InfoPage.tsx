@@ -6,15 +6,15 @@ import { useInfoPage } from './logic/useInfoPaje';
 import Filters from '../../modules/filters/Filters';
 
 const InfoPage: FC = () => {
-  const { state } = useInfoPage();
+  const { charactersState } = useInfoPage();
 
-  if (state.characters === undefined) return null;
+  if (charactersState.characters === undefined) return null;
 
   return (
     <div className={styles.layout}>
       <Filters />
       <div className={styles.charactersContainer}>
-        {state.characters.map((character) => (
+        {charactersState.characters.map((character) => (
           <CaracterCard
             key={character.id}
             id={character.id}

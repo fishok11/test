@@ -3,14 +3,16 @@ import { usePagination } from './logic/usePagination';
 import styles from './Pagination.module.scss';
 
 const Pagination: FC = () => {
-  const { state, handleNextPage, handlePrevPage } =
-    usePagination();
+  const { charactersState, handleNextPage, handlePrevPage } = usePagination();
 
   return (
     <>
       <p className={styles.text}>
-        <span className={styles.textPage}>{state.currentPage}</span> out of{' '}
-        <span className={styles.textPage}>{state.infoPages.pages}</span>
+        <span className={styles.textPage}>{charactersState.currentPage}</span>{' '}
+        out of{' '}
+        <span className={styles.textPage}>
+          {charactersState.infoPages.pages}
+        </span>
       </p>
       <div className={styles.buttonsContainer}>
         <button className={styles.itemPrev} onClick={handlePrevPage}>
